@@ -108,6 +108,29 @@
                         {% endif %}
                     </div>
                 </div>
+                                        <div class="col-md-4 mb-3">
+                            {{ form.contacto_alumno.label_tag }}
+                            {{ form.contacto_alumno }}
+                            {% if form.contacto_alumno.errors %}
+                                <div class="text-danger">{{ form.contacto_alumno.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            {{ form.contacto_alumno_tipo.label_tag }}
+                            {{ form.contacto_alumno_tipo }}
+                            {% if form.contacto_alumno_tipo.errors %}
+                                <div class="text-danger">{{ form.contacto_alumno_tipo.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            {{ form.correo_electronico.label_tag }}
+                            {{ form.correo_electronico }}
+                            {% if form.correo_electronico.errors %}
+                                <div class="text-danger">{{ form.correo_electronico.errors.0 }}</div>
+                            {% endif %}
+                        </div>
 
                 <hr>
 
@@ -177,6 +200,25 @@
                             <div class="text-danger">{{ form.madre_apellido_materno.errors.0 }}</div>
                         {% endif %}
                     </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.madre_telefono.label_tag }}
+                        {{ form.madre_telefono }}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.madre_contacto_tipo.label_tag }}
+                        {{ form.madre_contacto_tipo }}
+
+                        {% if form.madre_contacto_tipo.errors %}
+                            <div class="text-danger">
+                                {{ form.madre_contacto_tipo.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        {{ form.madre_correo.label_tag }}
+                        {{ form.madre_correo }}
+                    </div>
                 </div>
 
                 <hr>
@@ -204,6 +246,25 @@
                         {% if form.padre_apellido_materno.errors %}
                             <div class="text-danger">{{ form.padre_apellido_materno.errors.0 }}</div>
                         {% endif %}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.padre_telefono.label_tag }}
+                        {{ form.padre_telefono }}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.padre_contacto_tipo.label_tag }}
+                        {{ form.padre_contacto_tipo }}
+
+                        {% if form.padre_contacto_tipo.errors %}
+                            <div class="text-danger">
+                                {{ form.padre_contacto_tipo.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        {{ form.padre_correo.label_tag }}
+                        {{ form.padre_correo }}
                     </div>
                 </div>
 
@@ -243,7 +304,7 @@
                 </div>
 
                     <!-- DATOS DE CONTACTO -->
-                    <h3>Datos de Contacto</h3>
+                    <h3>Datos de Referencia</h3>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             {{ form.persona_recoge.label_tag }}
@@ -268,36 +329,12 @@
                                 <div class="text-danger">{{ form.contacto_padre_tipo.errors.0 }}</div>
                             {% endif %}
                         </div>
-
-                        <div class="col-md-4 mb-3">
-                            {{ form.contacto_alumno.label_tag }}
-                            {{ form.contacto_alumno }}
-                            {% if form.contacto_alumno.errors %}
-                                <div class="text-danger">{{ form.contacto_alumno.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            {{ form.contacto_alumno_tipo.label_tag }}
-                            {{ form.contacto_alumno_tipo }}
-                            {% if form.contacto_alumno_tipo.errors %}
-                                <div class="text-danger">{{ form.contacto_alumno_tipo.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            {{ form.correo_electronico.label_tag }}
-                            {{ form.correo_electronico }}
-                            {% if form.correo_electronico.errors %}
-                                <div class="text-danger">{{ form.correo_electronico.errors.0 }}</div>
-                            {% endif %}
-                        </div>
                     </div>
 
                     <hr>
 
                     <!-- DATOS INTERNOS -->
-                    <h3>Datos Internos</h3>
+                    <h3>Datos de control interno</h3>
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             {{ form.fecha_inscripcion.label_tag }}

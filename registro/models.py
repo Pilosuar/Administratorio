@@ -39,12 +39,22 @@ class Alumno(models.Model):
 
     foto = models.ImageField(upload_to='alumnos/', validators=[validar_resolucion_imagen], verbose_name="Fotografía")
 
+    contacto_alumno = models.CharField(max_length=10, verbose_name="Numero telefónico", default="----------", validators=[telefono_validator],)
+    TIPOS_CONTACTO = [
+    ('null', 'Seleccionar'),
+    ('Movil', 'Móvil'),
+    ('Fijo', 'Fijo'),
+    ]
+    contacto_alumno_tipo = models.CharField(max_length=10, choices=TIPOS_CONTACTO, verbose_name="Tipo de contacto")
+    correo_electronico = models.EmailField()
+
     # Datos médicos
     alergias = models.BooleanField(default=False)
     alergias_detalle = models.CharField(max_length=200, blank=True)
     alergico_medicamento = models.BooleanField(default=False)
     alergico_medicamento_detalle = models.CharField(max_length=200, blank=True)
     TIPOS_SANGRE = [
+    ('', 'Seleccionar'),
     ('A+', 'A+'),
     ('A-', 'A-'),
     ('B+', 'B+'),
@@ -55,49 +65,48 @@ class Alumno(models.Model):
     ('O-', 'O-'),
     ]
 
-    tipo_sangre = models.CharField(
-    max_length=3,
-    choices=TIPOS_SANGRE,
-    verbose_name="Tipo de sangre"
-    )
+    tipo_sangre = models.CharField(max_length=3, choices=TIPOS_SANGRE, verbose_name="Tipo de sangre")
     # Datos de la madre
-    madre_nombre = models.CharField(max_length=100)
-    madre_apellido_paterno = models.CharField(max_length=100)
-    madre_apellido_materno = models.CharField(max_length=100)
+    madre_nombre = models.CharField(max_length=100, default="null", verbose_name="Nombre(s)")
+    madre_apellido_paterno = models.CharField(max_length=100, default="null", verbose_name="Apellido paterno")
+    madre_apellido_materno = models.CharField(max_length=100, default="null", verbose_name="Apellido materno")
+    madre_telefono = models.CharField(max_length=10, verbose_name="Número telefónico", default="null", validators=[telefono_validator])
+    madre_contacto_tipo = models.CharField(max_length=10, choices=TIPOS_CONTACTO, default="----------", verbose_name="Tipo de contacto")
+
+    madre_correo = models.EmailField(verbose_name="Correo electrónico", default="null", blank=True)
 
     # Datos del padre
-    padre_nombre = models.CharField(max_length=100)
-    padre_apellido_paterno = models.CharField(max_length=100)
-    padre_apellido_materno = models.CharField(max_length=100)
+    padre_nombre = models.CharField(max_length=100, default="null", verbose_name="Nombre(s)")
+    padre_apellido_paterno = models.CharField(max_length=100, default="null", verbose_name="Apellido paterno")
+    padre_apellido_materno = models.CharField(max_length=100, default="null", verbose_name="Apellido materno")
+    padre_telefono = models.CharField(max_length=10, verbose_name="Número telefónico", default="----------", validators=[telefono_validator])
+    padre_contacto_tipo = models.CharField(max_length=10, choices=TIPOS_CONTACTO, default="null", verbose_name="Tipo de contacto")
+    padre_correo = models.EmailField(verbose_name="Correo electrónico", default="null", blank=True)
 
     # Datos escolares
     escuela = models.CharField(max_length=150)
-    grado = models.CharField(max_length=50)
+    grado = models.CharField(max_length=50, verbose_name="Nivel escolar")
     año = models.PositiveIntegerField()
     promedio_anterior = models.DecimalField(
         max_digits=4,
         decimal_places=2,
+        verbose_name="Promedio del ciclo anterior",
         validators=[
             MinValueValidator(0),
             MaxValueValidator(10)
         ]
     )
     # Datos de referencia
-    persona_recoge = models.CharField(max_length=100)
+    persona_recoge = models.CharField(max_length=100, verbose_name="Persona que recoge")
     contacto_padre = models.CharField(
         max_length=10,
+        verbose_name="Numero telefónico",
         validators=[telefono_validator]
     )
-    contacto_padre_tipo = models.CharField(max_length=20)
-    contacto_alumno = models.CharField(
-        max_length=10,
-        validators=[telefono_validator],
-    )
-    contacto_alumno_tipo = models.CharField(max_length=20)
-    correo_electronico = models.EmailField()
+    contacto_padre_tipo = models.CharField(max_length=10, choices=TIPOS_CONTACTO, verbose_name="Tipo de contacto")
 
     # Datos internos
-    fecha_inscripcion = models.DateField()
+    fecha_inscripcion = models.DateField(verbose_name="fecha de inscirpcion")
     curso = models.CharField(max_length=150)
     horario = models.CharField(max_length=50)
     contrato = models.CharField(max_length=50)

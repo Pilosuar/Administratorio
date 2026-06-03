@@ -113,8 +113,23 @@
                 </tr>
 
                 <tr>
+                    <th>Teléfono del alumno</th>
+                    <td>{{ alumno.contacto_alumno }}</td>
+                </tr>
+
+                <tr>
+                    <th>Tipo de contacto del alumno</th>
+                    <td>{{ alumno.get_contacto_alumno_tipo_display }}</td>
+                </tr>
+
+                <tr>
+                    <th>Correo electrónico del alumno</th>
+                    <td>{{ alumno.correo_electronico }}</td>
+                </tr>
+
+                <tr>
                     <th>Fecha nacimiento</th>
-                    <td>{{ alumno.fecha_nacimiento }}</td>
+                    <td>{{ alumno.fecha_nacimiento|date:"d/m/Y" }}</td>
                 </tr>
 
             </table>
@@ -146,11 +161,9 @@
                 </tr>
 
                 <tr>
-                    <th>Tipo sangre</th>
-                    <td>{{ alumno.tipo_sangre }}</td>
+                    <th>Tipo de sangre</th>
+                    <td>{{ alumno.get_tipo_sangre_display }}</td>
                 </tr>
-
-            </table>
 
             <div class="seccion">
                 Datos de la Madre
@@ -159,7 +172,7 @@
             <table class="table table-bordered">
 
                 <tr>
-                    <th>Nombre</th>
+                    <th>Nombre(s)</th>
                     <td>{{ alumno.madre_nombre }}</td>
                 </tr>
 
@@ -173,6 +186,21 @@
                     <td>{{ alumno.madre_apellido_materno }}</td>
                 </tr>
 
+                <tr>
+                    <th>Número telefónico</th>
+                    <td>{{ alumno.madre_telefono }}</td>
+                </tr>
+
+                <tr>
+                    <th>Tipo de contacto</th>
+                    <td>{{ alumno.get_madre_contacto_tipo_display }}</td>
+                </tr>
+
+                <tr>
+                    <th>Correo electrónico</th>
+                    <td>{{ alumno.madre_correo }}</td>
+                </tr>
+
             </table>
 
             <div class="seccion">
@@ -182,7 +210,7 @@
             <table class="table table-bordered">
 
                 <tr>
-                    <th>Nombre</th>
+                    <th>Nombre(s)</th>
                     <td>{{ alumno.padre_nombre }}</td>
                 </tr>
 
@@ -194,6 +222,21 @@
                 <tr>
                     <th>Apellido materno</th>
                     <td>{{ alumno.padre_apellido_materno }}</td>
+                </tr>
+
+                <tr>
+                    <th>Número telefónico</th>
+                    <td>{{ alumno.padre_telefono }}</td>
+                </tr>
+
+                <tr>
+                    <th>Tipo de contacto</th>
+                    <td>{{ alumno.get_padre_contacto_tipo_display }}</td>
+                </tr>
+
+                <tr>
+                    <th>Correo electrónico</th>
+                    <td>{{ alumno.padre_correo }}</td>
                 </tr>
 
             </table>
@@ -238,28 +281,13 @@
                 </tr>
 
                 <tr>
-                    <th>Contacto padre</th>
+                    <th>Teléfono del padre/tutor</th>
                     <td>{{ alumno.contacto_padre }}</td>
                 </tr>
 
                 <tr>
-                    <th>Tipo contacto padre</th>
-                    <td>{{ alumno.contacto_padre_tipo }}</td>
-                </tr>
-
-                <tr>
-                    <th>Contacto alumno</th>
-                    <td>{{ alumno.contacto_alumno }}</td>
-                </tr>
-
-                <tr>
-                    <th>Tipo contacto alumno</th>
-                    <td>{{ alumno.contacto_alumno_tipo }}</td>
-                </tr>
-
-                <tr>
-                    <th>Correo</th>
-                    <td>{{ alumno.correo_electronico }}</td>
+                    <th>Tipo de contacto del padre/tutor</th>
+                    <td>{{ alumno.get_contacto_padre_tipo_display }}</td>
                 </tr>
 
             </table>
@@ -272,7 +300,7 @@
 
                 <tr>
                     <th>Fecha inscripción</th>
-                    <td>{{ alumno.fecha_inscripcion }}</td>
+                    <td>{{ alumno.fecha_inscripcion|date:"d/m/Y" }}</td>
                 </tr>
 
                 <tr>
