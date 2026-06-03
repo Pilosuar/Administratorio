@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Alumno</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#f5f5f5;
+        }
+
+        .card{
+            margin-top:30px;
+            margin-bottom:30px;
+        }
+
+        h3{
+            margin-bottom:20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card shadow">
+        <div class="card-body">
+
+            <h2 class="text-center mb-4">
+                Registro de Alumno</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                <div class="alert alert-danger mb-4">
+
+                <p>Corrija los siguientes campos antes de continuar:</p>
+
+                <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>
+                            <strong>{{ field.label }}:</strong>
+                            {{ error }}
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+                </ul>
+            </div>
+                {% endif %}
+    </div>
+
+                 <h3>Datos Personales</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        {{ form.nombre.label_tag }}
+                        {{ form.nombre }}
+                        {% if form.nombre.errors %}
+                            <div class="text-danger">{{ form.nombre.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.apellido_paterno.label_tag }}
+                        {{ form.apellido_paterno }}
+                        {% if form.apellido_paterno.errors %}
+                            <div class="text-danger">{{ form.apellido_paterno.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.apellido_materno.label_tag }}
+                        {{ form.apellido_materno }}
+                        {% if form.apellido_materno.errors %}
+                            <div class="text-danger">{{ form.apellido_materno.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.edad.label_tag }}
+                        {{ form.edad }}
+                        {% if form.edad.errors %}
+                            <div class="text-danger">{{ form.edad.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.fecha_nacimiento.label_tag }}
+                        {{ form.fecha_nacimiento }}
+                        {% if form.fecha_nacimiento.errors %}
+                            <div class="text-danger">{{ form.fecha_nacimiento.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.estado.label_tag }}
+                        {{ form.estado }}
+                        {% if form.estado.errors %}
+                            <div class="text-danger">{{ form.estado.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.foto.label_tag }}
+                        {{ form.foto }}
+                            {% if form.foto.field.required %}
+                                <span class="text-danger">*</span>
+                            {% endif %}
+                        {% if form.foto.errors %}
+                            <div class="text-danger">{{ form.foto.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- DATOS MÉDICOS -->
+                <h3>Datos Médicos</h3>
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        {{ form.alergias.label_tag }}
+                        {{ form.alergias }}
+                        {% if form.alergias.errors %}
+                            <div class="text-danger">{{ form.alergias.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        {{ form.alergias_detalle.label_tag }}
+                        {{ form.alergias_detalle }}
+                        {% if form.alergias_detalle.errors %}
+                            <div class="text-danger">{{ form.alergias_detalle.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        {{ form.alergico_medicamento.label_tag }}
+                        {{ form.alergico_medicamento }}
+                        {% if form.alergico_medicamento.errors %}
+                            <div class="text-danger">{{ form.alergico_medicamento.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.alergico_medicamento_detalle.label_tag }}
+                        {{ form.alergico_medicamento_detalle }}
+                        {% if form.alergico_medicamento_detalle.errors %}
+                            <div class="text-danger">{{ form.alergico_medicamento_detalle.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.tipo_sangre.label_tag }}
+                        {{ form.tipo_sangre }}
+                        {% if form.tipo_sangre.errors %}
+                            <div class="text-danger">{{ form.tipo_sangre.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- DATOS DE LA MADRE -->
+                <h3>Datos de la Madre</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        {{ form.madre_nombre.label_tag }}
+                        {{ form.madre_nombre }}
+                        {% if form.madre_nombre.errors %}
+                            <div class="text-danger">{{ form.madre_nombre.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.madre_apellido_paterno.label_tag }}
+                        {{ form.madre_apellido_paterno }}
+                        {% if form.madre_apellido_paterno.errors %}
+                            <div class="text-danger">{{ form.madre_apellido_paterno.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.madre_apellido_materno.label_tag }}
+                        {{ form.madre_apellido_materno }}
+                        {% if form.madre_apellido_materno.errors %}
+                            <div class="text-danger">{{ form.madre_apellido_materno.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- DATOS DEL PADRE -->
+                <h3>Datos del Padre</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        {{ form.padre_nombre.label_tag }}
+                        {{ form.padre_nombre }}
+                        {% if form.padre_nombre.errors %}
+                            <div class="text-danger">{{ form.padre_nombre.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.padre_apellido_paterno.label_tag }}
+                        {{ form.padre_apellido_paterno }}
+                        {% if form.padre_apellido_paterno.errors %}
+                            <div class="text-danger">{{ form.padre_apellido_paterno.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.padre_apellido_materno.label_tag }}
+                        {{ form.padre_apellido_materno }}
+                        {% if form.padre_apellido_materno.errors %}
+                            <div class="text-danger">{{ form.padre_apellido_materno.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- DATOS ESCOLARES -->
+                <h3>Datos Escolares</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        {{ form.escuela.label_tag }}
+                        {{ form.escuela }}
+                        {% if form.escuela.errors %}
+                            <div class="text-danger">{{ form.escuela.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        {{ form.grado.label_tag }}
+                        {{ form.grado }}
+                        {% if form.grado.errors %}
+                            <div class="text-danger">{{ form.grado.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        {{ form.año.label_tag }}
+                        {{ form.año }}
+                        {% if form.año.errors %}
+                            <div class="text-danger">{{ form.año.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        {{ form.promedio_anterior.label_tag }}
+                        {{ form.promedio_anterior }}
+                        {% if form.promedio_anterior.errors %}
+                            <div class="text-danger">{{ form.promedio_anterior.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                    <!-- DATOS DE CONTACTO -->
+                    <h3>Datos de Contacto</h3>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            {{ form.persona_recoge.label_tag }}
+                            {{ form.persona_recoge }}
+                            {% if form.persona_recoge.errors %}
+                                <div class="text-danger">{{ form.persona_recoge.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            {{ form.contacto_padre.label_tag }}
+                            {{ form.contacto_padre }}
+                            {% if form.contacto_padre.errors %}
+                                <div class="text-danger">{{ form.contacto_padre.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            {{ form.contacto_padre_tipo.label_tag }}
+                            {{ form.contacto_padre_tipo }}
+                            {% if form.contacto_padre_tipo.errors %}
+                                <div class="text-danger">{{ form.contacto_padre_tipo.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            {{ form.contacto_alumno.label_tag }}
+                            {{ form.contacto_alumno }}
+                            {% if form.contacto_alumno.errors %}
+                                <div class="text-danger">{{ form.contacto_alumno.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            {{ form.contacto_alumno_tipo.label_tag }}
+                            {{ form.contacto_alumno_tipo }}
+                            {% if form.contacto_alumno_tipo.errors %}
+                                <div class="text-danger">{{ form.contacto_alumno_tipo.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            {{ form.correo_electronico.label_tag }}
+                            {{ form.correo_electronico }}
+                            {% if form.correo_electronico.errors %}
+                                <div class="text-danger">{{ form.correo_electronico.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- DATOS INTERNOS -->
+                    <h3>Datos Internos</h3>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            {{ form.fecha_inscripcion.label_tag }}
+                            {{ form.fecha_inscripcion }}
+                            {% if form.fecha_inscripcion.errors %}
+                                <div class="text-danger">{{ form.fecha_inscripcion.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            {{ form.curso.label_tag }}
+                            {{ form.curso }}
+                            {% if form.curso.errors %}
+                                <div class="text-danger">{{ form.curso.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            {{ form.horario.label_tag }}
+                            {{ form.horario }}
+                            {% if form.horario.errors %}
+                                <div class="text-danger">{{ form.horario.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            {{ form.contrato.label_tag }}
+                            {{ form.contrato }}
+                            {% if form.contrato.errors %}
+                                <div class="text-danger">{{ form.contrato.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            {{ form.observaciones.label_tag }}
+                            {{ form.observaciones }}
+                            {% if form.observaciones.errors %}
+                                <div class="text-danger">{{ form.observaciones.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">
+                            Guardar Alumno
+                        </button>
+                    </div>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+<script>
+    // Función para habilitar/deshabilitar campos
+    function toggleFields() {
+        const alergiasCheckbox = document.getElementById("id_alergias");
+        const alergiasDetalle = document.getElementById("id_alergias_detalle");
+
+        const medicamentoCheckbox = document.getElementById("id_alergico_medicamento");
+        const medicamentoDetalle = document.getElementById("id_alergico_medicamento_detalle");
+
+        // Alergias
+        if (alergiasCheckbox.checked) {
+            alergiasDetalle.removeAttribute("disabled");
+        } else {
+            alergiasDetalle.setAttribute("disabled", "true");
+            alergiasDetalle.value = "";
+        }
+
+        // Medicamentos
+        if (medicamentoCheckbox.checked) {
+            medicamentoDetalle.removeAttribute("disabled");
+        } else {
+            medicamentoDetalle.setAttribute("disabled", "true");
+            medicamentoDetalle.value = "";
+        }
+    }
+
+    // Ejecutar al cargar y cuando cambien los checkboxes
+    document.addEventListener("DOMContentLoaded", toggleFields);
+    document.getElementById("id_alergias").addEventListener("change", toggleFields);
+    document.getElementById("id_alergico_medicamento").addEventListener("change", toggleFields);
+</script>
+</body>
+</html>
