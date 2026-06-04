@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Grupo</title>
+</head>
+<body>
+
+    <h1>Eliminar Grupo</h1>
+
+    <p>
+        ¿Está seguro que desea eliminar el grupo
+        <strong>{{ grupo.nombre }}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit">
+            Confirmar eliminación
+        </button>
+
+        <a href="{% url 'lista_grupos' %}">
+            Cancelar
+        </a>
+    </form>
+
+</body>
+</html>

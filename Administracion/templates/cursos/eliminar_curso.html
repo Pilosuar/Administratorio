@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Curso</title>
+</head>
+<body>
+
+    <h1>Eliminar Curso</h1>
+
+    <p>
+        ¿Está seguro que desea eliminar el curso
+        <strong>{{ curso.nombre }}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit">
+            Confirmar eliminación
+        </button>
+
+        <a href="{% url 'lista_cursos' %}">
+            Cancelar
+        </a>
+    </form>
+
+</body>
+</html>

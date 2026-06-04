@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Grupos</title>
+</head>
+<body>
+
+    <h1>Lista de Grupos</h1>
+
+    <a href="{% url 'crear_grupo' %}">
+        Nuevo Grupo
+    </a>
+
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Curso</th>
+                <th>Horario</th>
+                <th>Cupo</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for grupo in grupos %}
+            <tr>
+                <td>{{ grupo.nombre }}</td>
+                <td>{{ grupo.curso }}</td>
+                <td>{{ grupo.horario }}</td>
+                <td>{{ grupo.cupo }}</td>
+                <td>{{ grupo.fecha_inicio }}</td>
+                <td>{{ grupo.fecha_fin }}</td>
+                <td>
+                    <a href="{% url 'editar_grupo' grupo.id %}">
+                        Editar
+                    </a>
+                     <a href="{% url 'eliminar_grupo' grupo.id %}">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">
+                    No hay grupos registrados.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

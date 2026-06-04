@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %} Administracion {% endblock %}</title>
+</head>
+<body>
+	<div style="background-color: #111000">
+		
+	<h1>BARRA DE NAVEGACION</h1>
+		<ul>
+			<li><a href="{% url 'lista_cursos' %}">Cursos</a></li>
+			<li><a href="{% url 'lista_grupos' %}">Grupos</a></li>
+			<li><a href="{% url 'lista_inscripciones' %}">Inscripciones</a></li>
+			<li><a href="{% url 'lista_alumnos' %}">Alumnos</li>
+		</ul>
+	</div>
+	<div>
+		{% block body %}
+
+		{% endblock %}
+	</div>
+</body>
+</html>

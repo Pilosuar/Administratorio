@@ -59,6 +59,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['../Administracion/Administracion/templates',
                 '../Administracion/Administracion/templates/registro',
+                '../Administracion/Administracion/templates/cursos',
+                '../Administracion/Administracion/templates/grupos',
+                '../Administracion/Administracion/templates/inscripciones',
         ],
         'APP_DIRS': True,
         'OPTIONS': {

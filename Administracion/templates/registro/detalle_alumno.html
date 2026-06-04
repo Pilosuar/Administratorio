@@ -326,6 +326,19 @@
 
             </table>
 
+            <h3>Inscripciones</h3>
+
+                <ul>
+                {% for inscripcion in alumno.inscripciones.all %}
+                    <li>
+                        {{ inscripcion.grupo.curso.nombre }}
+                        - {{ inscripcion.grupo.nombre }}
+                    </li>
+                {% empty %}
+                    <li>Sin inscripciones</li>
+                {% endfor %}
+                </ul>
+
         </div>
 
     </div>

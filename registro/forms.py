@@ -1,6 +1,8 @@
 from django import forms
 from .models import Alumno
-
+from .models import Curso
+from .models import Grupo
+from .models import Inscripcion
 
 class AlumnoForm(forms.ModelForm):
 
@@ -12,17 +14,12 @@ class AlumnoForm(forms.ModelForm):
                 attrs={'type': 'date'},
                 format='%Y-%m-%d'
             ),
-            'fecha_inscripcion': forms.DateInput(
-                attrs={'type': 'date'},
-                format='%Y-%m-%d'
-            ),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['fecha_nacimiento'].input_formats = ['%Y-%m-%d']
-        self.fields['fecha_inscripcion'].input_formats = ['%Y-%m-%d']
 
         for nombre, campo in self.fields.items():
 
@@ -40,16 +37,6 @@ class AlumnoForm(forms.ModelForm):
                     self.fields[campo].widget.attrs['class'] = (
                         clase_actual + ' is-invalid'
                     )
-
-    def clean_edad(self):
-        edad = self.cleaned_data.get('edad')
-
-        if edad is not None and edad <= 0:
-            raise forms.ValidationError(
-                "La edad debe ser un número positivo."
-            )
-
-        return edad
 
     def clean_foto(self):
         foto = self.cleaned_data.get('foto')
@@ -96,3 +83,50 @@ class AlumnoForm(forms.ModelForm):
                     )
 
         return cleaned_data
+
+
+class CursoForm(forms.ModelForm):
+    class Meta:
+        model = Curso
+        fields = '__all__'
+
+
+class GrupoForm(forms.ModelForm):
+    class Meta:
+        model = Grupo
+        fields = '__all__'
+
+        widgets = {
+            'fecha_inicio': forms.DateInput(
+                attrs={'type': 'date'}, format='%Y-%m-%d'
+            ),
+            'fecha_fin': forms.DateInput(
+                attrs={'type': 'date'}, format='%Y-%m-%d'
+            ),
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fecha_inicio'].input_formats = ['%Y-%m-%d']
+        self.fields['fecha_fin'].input_formats = ['%Y-%m-%d']
+
+
+class InscripcionForm(forms.ModelForm):
+    class Meta:
+        model = Inscripcion
+        fields = '__all__'
+
+        widgets = {
+            'fecha_inscripcion': forms.DateInput(
+                attrs={'type': 'date'}, format='%Y-%m-%d'
+            ),
+            'fecha_baja': forms.DateInput(
+                attrs={'type': 'date'}, format='%Y-%m-%d'
+            ),
+        }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['fecha_inscripcion'].input_formats = ['%Y-%m-%d']
+        self.fields['fecha_baja'].input_formats = ['%Y-%m-%d']

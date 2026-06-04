@@ -76,25 +76,24 @@
                             <div class="text-danger">{{ form.apellido_materno.errors.0 }}</div>
                         {% endif %}
                     </div>
+
+
                     <div class="col-md-3 mb-3">
-                        {{ form.edad.label_tag }}
-                        {{ form.edad }}
-                        {% if form.edad.errors %}
-                            <div class="text-danger">{{ form.edad.errors.0 }}</div>
-                        {% endif %}
+                        <label class="form-label">Edad calculada</label>
+                        <input
+                            type="text"
+                            id="edad_calculada"
+                            class="form-control"
+                            readonly
+                        >
                     </div>
+
+
                     <div class="col-md-3 mb-3">
                         {{ form.fecha_nacimiento.label_tag }}
                         {{ form.fecha_nacimiento }}
                         {% if form.fecha_nacimiento.errors %}
                             <div class="text-danger">{{ form.fecha_nacimiento.errors.0 }}</div>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        {{ form.estado.label_tag }}
-                        {{ form.estado }}
-                        {% if form.estado.errors %}
-                            <div class="text-danger">{{ form.estado.errors.0 }}</div>
                         {% endif %}
                     </div>
                     <div class="col-md-3 mb-3">
@@ -131,6 +130,15 @@
                                 <div class="text-danger">{{ form.correo_electronico.errors.0 }}</div>
                             {% endif %}
                         </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.estatus.label_tag }}
+                            {{ form.estatus }}
+                            {% if form.estatus.errors %}
+                                <div class="text-danger">{{ form.estatus.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+
 
                 <hr>
 
@@ -315,18 +323,18 @@
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            {{ form.contacto_padre.label_tag }}
-                            {{ form.contacto_padre }}
-                            {% if form.contacto_padre.errors %}
-                                <div class="text-danger">{{ form.contacto_padre.errors.0 }}</div>
+                            {{ form.contacto_otro.label_tag }}
+                            {{ form.contacto_otro }}
+                            {% if form.contacto_otro.errors %}
+                                <div class="text-danger">{{ form.contacto_otro.errors.0 }}</div>
                             {% endif %}
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            {{ form.contacto_padre_tipo.label_tag }}
-                            {{ form.contacto_padre_tipo }}
-                            {% if form.contacto_padre_tipo.errors %}
-                                <div class="text-danger">{{ form.contacto_padre_tipo.errors.0 }}</div>
+                            {{ form.contacto_otro_tipo.label_tag }}
+                            {{ form.contacto_otro_tipo }}
+                            {% if form.contacto_otro_tipo.errors %}
+                                <div class="text-danger">{{ form.contacto_otro_tipo.errors.0 }}</div>
                             {% endif %}
                         </div>
                     </div>
@@ -336,38 +344,6 @@
                     <!-- DATOS INTERNOS -->
                     <h3>Datos de control interno</h3>
                     <div class="row">
-                        <div class="col-md-3 mb-3">
-                            {{ form.fecha_inscripcion.label_tag }}
-                            {{ form.fecha_inscripcion }}
-                            {% if form.fecha_inscripcion.errors %}
-                                <div class="text-danger">{{ form.fecha_inscripcion.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            {{ form.curso.label_tag }}
-                            {{ form.curso }}
-                            {% if form.curso.errors %}
-                                <div class="text-danger">{{ form.curso.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            {{ form.horario.label_tag }}
-                            {{ form.horario }}
-                            {% if form.horario.errors %}
-                                <div class="text-danger">{{ form.horario.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            {{ form.contrato.label_tag }}
-                            {{ form.contrato }}
-                            {% if form.contrato.errors %}
-                                <div class="text-danger">{{ form.contrato.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
                         <div class="col-md-12 mb-3">
                             {{ form.observaciones.label_tag }}
                             {{ form.observaciones }}
@@ -381,6 +357,11 @@
                         <button type="submit" class="btn btn-success">
                             Guardar Alumno
                         </button>
+                        <a href="{% url 'lista_alumnos' %}"
+                           class="btn btn-secondary ms-2"
+                           onclick="return confirm('¿Desea cancelar el registro? Los datos capturados se perderán.');">
+                            Cancelar
+                        </a>
                     </div>
 
 
@@ -421,6 +402,55 @@
     document.addEventListener("DOMContentLoaded", toggleFields);
     document.getElementById("id_alergias").addEventListener("change", toggleFields);
     document.getElementById("id_alergico_medicamento").addEventListener("change", toggleFields);
+
+function calcularEdad() {
+
+    const fechaNacimiento =
+        document.getElementById("id_fecha_nacimiento").value;
+
+    const edadInput =
+        document.getElementById("edad_calculada");
+
+    if (!fechaNacimiento) {
+        edadInput.value = "";
+        return;
+    }
+
+    const hoy = new Date();
+    const nacimiento = new Date(fechaNacimiento);
+
+    let edad =
+        hoy.getFullYear() -
+        nacimiento.getFullYear();
+
+    const mes =
+        hoy.getMonth() -
+        nacimiento.getMonth();
+
+    if (
+        mes < 0 ||
+        (
+            mes === 0 &&
+            hoy.getDate() < nacimiento.getDate()
+        )
+    ) {
+        edad--;
+    }
+
+    edadInput.value = edad + " años";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    calcularEdad();
+
+    document
+        .getElementById("id_fecha_nacimiento")
+        .addEventListener(
+            "change",
+            calcularEdad
+        );
+});
 </script>
 </body>
 </html>
