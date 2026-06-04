@@ -39,9 +39,9 @@ class Alumno(models.Model):
 
     foto = models.ImageField(upload_to='alumnos/', validators=[validar_resolucion_imagen], verbose_name="Fotografía")
 
-    contacto_alumno = models.CharField(max_length=10, verbose_name="Numero telefónico", default="----------", validators=[telefono_validator],)
+    contacto_alumno = models.CharField(max_length=10, verbose_name="Numero telefónico", validators=[telefono_validator],)
     TIPOS_CONTACTO = [
-    ('null', 'Seleccionar'),
+    ('', 'Seleccionar un tipo'),
     ('Movil', 'Móvil'),
     ('Fijo', 'Fijo'),
     ]
@@ -67,21 +67,21 @@ class Alumno(models.Model):
 
     tipo_sangre = models.CharField(max_length=3, choices=TIPOS_SANGRE, verbose_name="Tipo de sangre")
     # Datos de la madre
-    madre_nombre = models.CharField(max_length=100, default="null", verbose_name="Nombre(s)")
-    madre_apellido_paterno = models.CharField(max_length=100, default="null", verbose_name="Apellido paterno")
-    madre_apellido_materno = models.CharField(max_length=100, default="null", verbose_name="Apellido materno")
-    madre_telefono = models.CharField(max_length=10, verbose_name="Número telefónico", default="null", validators=[telefono_validator])
-    madre_contacto_tipo = models.CharField(max_length=10, choices=TIPOS_CONTACTO, default="----------", verbose_name="Tipo de contacto")
+    madre_nombre = models.CharField(max_length=100, blank=True, verbose_name="Nombre(s)")
+    madre_apellido_paterno = models.CharField(max_length=100, blank=True, verbose_name="Apellido paterno")
+    madre_apellido_materno = models.CharField(max_length=100, blank=True, verbose_name="Apellido materno")
+    madre_telefono = models.CharField(max_length=10, verbose_name="Número telefónico", blank=True, validators=[telefono_validator])
+    madre_contacto_tipo = models.CharField(max_length=10, choices=TIPOS_CONTACTO, verbose_name="Tipo de contacto")
 
-    madre_correo = models.EmailField(verbose_name="Correo electrónico", default="null", blank=True)
+    madre_correo = models.EmailField(verbose_name="Correo electrónico", blank=True)
 
     # Datos del padre
-    padre_nombre = models.CharField(max_length=100, default="null", verbose_name="Nombre(s)")
-    padre_apellido_paterno = models.CharField(max_length=100, default="null", verbose_name="Apellido paterno")
-    padre_apellido_materno = models.CharField(max_length=100, default="null", verbose_name="Apellido materno")
-    padre_telefono = models.CharField(max_length=10, verbose_name="Número telefónico", default="----------", validators=[telefono_validator])
-    padre_contacto_tipo = models.CharField(max_length=10, choices=TIPOS_CONTACTO, default="null", verbose_name="Tipo de contacto")
-    padre_correo = models.EmailField(verbose_name="Correo electrónico", default="null", blank=True)
+    padre_nombre = models.CharField(max_length=100, blank=True, verbose_name="Nombre(s)")
+    padre_apellido_paterno = models.CharField(max_length=100, blank=True, verbose_name="Apellido paterno")
+    padre_apellido_materno = models.CharField(max_length=100, blank=True, verbose_name="Apellido materno")
+    padre_telefono = models.CharField(max_length=10, verbose_name="Número telefónico", blank=True, validators=[telefono_validator])
+    padre_contacto_tipo = models.CharField(max_length=10, choices=TIPOS_CONTACTO, blank=True, verbose_name="Tipo de contacto")
+    padre_correo = models.EmailField(verbose_name="Correo electrónico", blank=True)
 
     # Datos escolares
     escuela = models.CharField(max_length=150)
