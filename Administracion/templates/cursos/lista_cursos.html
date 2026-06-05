@@ -2,24 +2,35 @@
 
 {% block title %} Cursos {% endblock %}
 {% block body %}
-    <h1>Lista de Cursos</h1>
-    <a href="{% url 'crear_curso' %}">Nuevo Curso</a>
-    <table border="1">
+    <div class="titulo-Ama">
+        <h2>Lista de Cursos</h2>
+    </div>
+    
+    <div class="btn-agregar">
+        <a href="{% url 'crear_curso' %}" class="btn-nuevo-alumno">
+            Nuevo Curso
+        </a>
+    </div>
+
+    <div class="card-individual">
+        <div class="tabla-individual">
+            <table border="1">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
+                <th class="Az">Nombre</th>
+                <th class="Ama">Descripción</th>
+                <th class="az">Acciones</th>
             </tr>
         </thead>
+
         <tbody>
             {% for curso in cursos %}
             <tr>
                 <td>{{ curso.nombre }}</td>
                 <td>{{ curso.descripcion }}</td>
                 <td>
-                    <a href="{% url 'editar_curso' curso.id %}">Editar</a>
-                    <a href="{% url 'eliminar_curso' curso.id %}">Eliminar</a>
+                    <a href="{% url 'editar_curso' curso.id %}" class="btn-editar">Editar</a>
+                    <a href="{% url 'eliminar_curso' curso.id %}" class="btn-eliminar">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
@@ -31,5 +42,7 @@
             {% endfor %}
         </tbody>
     </table>
+        </div>
+    </div>
 {% endblock %}
 

@@ -1,23 +1,50 @@
 {% extends 'plantilla.html' %}
 
-{% block title %} Eliminar inscripcion {% endblock %}
+{% block title %}Eliminar Inscripción{% endblock %}
+
 {% block body %}
-    <h1>Eliminar Inscripción</h1>
-    <p>¿Está seguro que desea eliminar la inscripción de:</p>
-    <ul>
-        <li>
-            Alumno:<strong>{{ inscripcion.alumno }}</strong></li>
-        <li>
-            Grupo:<strong>{{ inscripcion.grupo }}</strong>
-        </li>
-        <li>
-            Fecha:<strong>{{ inscripcion.fecha_inscripcion }}</strong>
-        </li>
-    </ul>
+
+<div class="card">
+
+    <div class="titulo-az">
+        <h2>Eliminar Inscripción</h2>
+    </div>
+
+    <p style="text-align:center; font-size:18px; margin-bottom:20px;">
+        ¿Está seguro que desea eliminar la siguiente inscripción?
+    </p>
+
+    <div style="max-width:500px; margin:0 auto 25px auto;">
+        <ul style="list-style:none; padding:0;">
+            <li style="margin-bottom:10px;">
+                <strong>Alumno:</strong> {{ inscripcion.alumno }}
+            </li>
+            <li style="margin-bottom:10px;">
+                <strong>Grupo:</strong> {{ inscripcion.grupo }}
+            </li>
+            <li>
+                <strong>Fecha:</strong> {{ inscripcion.fecha_inscripcion }}
+            </li>
+        </ul>
+    </div>
+
     <form method="post">
         {% csrf_token %}
 
-        <button type="submit">Confirmar eliminación</button>
-        <a href="{% url 'lista_inscripciones' %}">Cancelar</a>
+        <div class="submit-container">
+            <button type="submit" class="btn-cancelar">
+                Confirmar eliminación
+            </button>
+
+            <a href="{% url 'lista_inscripciones' %}"
+               class="btn-guardar"
+               style="text-decoration:none; display:inline-block; margin-left:10px;">
+                Cancelar
+            </a>
+        </div>
+
     </form>
+
+</div>
+
 {% endblock %}

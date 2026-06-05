@@ -3,75 +3,159 @@
 {% block title %} Alumnos {% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <div class="d-flex justify-content-between mb-3">
+
+
+    <div class="titulo-Az">
         <h2>Alumnos Registrados</h2>
-        <a href="{% url 'crear_alumno' %}" class="btn btn-success">Nuevo Alumno</a>
     </div>
-    <form method="GET" class="mb-3">
-        <div class="input-group">
-            <input type="text" name="buscar" value="{{ buscar }}" class="form-control" placeholder="Buscar alumno...">
-            <button class="btn btn-primary">Buscar</button>
+
+        <div class="btn-agregar">
+            <a href="{% url 'crear_alumno' %}" class="btn-nuevo-alumno">
+                Nuevo Alumno
+            </a>
         </div>
+
+    <div class="buscador">
+
+    <label>Buscar Alumno</label>
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="buscar"
+            value="{{ buscar }}"
+            placeholder="Buscar alumno..."
+        >
+
+        <input type="submit" value="Buscar">
+
     </form>
-    <table class="table table-striped table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>Foto</th>
-                <th>Nombre</th>
-                <th>Edad</th>
-                <th>Escuela</th>
-                <th>Curso</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for alumno in page_obj %}
-            <tr>
-                <td>
-                    {% if alumno.foto %}
-                        <img src="{{ alumno.foto.url }}" width="60">
-                    {% endif %}
-                </td>
-                <td>
-                    {{ alumno.nombre }}
-                    {{ alumno.apellido_paterno }}
-                    {{ alumno.apellido_materno }}
-                </td>
-                <td>{{ alumno.edad_calculada }}</td>
-                <td>{{ alumno.escuela }}</td>
-                <td>
-                    {% for inscripcion in alumno.inscripciones.all %}
-                        {{ inscripcion.grupo.curso.nombre }}<br>
-                    {% empty %}
-                        Sin inscripción
-                    {% endfor %}
-                </td>
-                <td>
-                    <a href="{% url 'detalle_alumno' alumno.id_alumno %}">Ver</a>
-                    <a href="{% url 'editar_alumno' alumno.id_alumno %}">Editar</a>
-                    <a href="{% url 'eliminar_alumno' alumno.id_alumno %}">Eliminar</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <nav>
-        <ul class="pagination">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link"href="?page=1&buscar={{ buscar }}">Primera</a>
-            </li>
-            {% endif %}
-            <li class="page-item active">
-                <span class="page-link">{{ page_obj.number }}</span>
-            </li>
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link"href="?page={{ page_obj.next_page_number }}&buscar={{ buscar }}">Siguiente</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
+
 </div>
+    
+   <div class="card-individual">
+
+    <div class="tabla-individual">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th class="Az">Foto</th>
+                    <th class="Ama">Nombre</th>
+                    <th class="Ver">Edad</th>
+                    <th class="Az">Escuela</th>
+                    <th class="Ama">Curso</th>
+                    <th class="az">Acciones</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for alumno in page_obj %}
+
+                <tr>
+
+                    <td>
+
+                        {% if alumno.foto %}
+                            <img src="{{ alumno.foto.url }}" alt="Foto">
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {{ alumno.nombre }}
+                        {{ alumno.apellido_paterno }}
+                        {{ alumno.apellido_materno }}
+
+                    </td>
+
+                    <td>
+
+                        {{ alumno.edad_calculada }}
+
+                    </td>
+
+                    <td>
+
+                        {{ alumno.escuela }}
+
+                    </td>
+
+                    <td>
+
+                        {% for inscripcion in alumno.inscripciones.all %}
+                            {{ inscripcion.grupo.curso.nombre }}<br>
+                        {% empty %}
+                            Sin inscripción
+                        {% endfor %}
+
+                    </td>
+
+                    <td>
+
+                        <a href="{% url 'detalle_alumno' alumno.id_alumno %}"
+                           class="btn-descargar">
+                            Ver
+                        </a>
+
+                        <a href="{% url 'editar_alumno' alumno.id_alumno %}"
+                           class="btn-editar">
+                            Editar
+                        </a>
+
+                        <a href="{% url 'eliminar_alumno' alumno.id_alumno %}"
+                           class="btn-eliminar">
+                            Eliminar
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="6">
+                        No hay alumnos registrados
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="paginacion">
+
+    {% if page_obj.has_previous %}
+        <a href="?page=1&buscar={{ buscar }}">
+            Primera
+        </a>
+    {% endif %}
+
+    <span>
+        {{ page_obj.number }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}&buscar={{ buscar }}">
+            Siguiente
+        </a>
+    {% endif %}
+
+</div>
+
 {% endblock %}

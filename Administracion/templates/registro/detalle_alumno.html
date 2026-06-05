@@ -3,251 +3,259 @@
 {% block title %} Ver alumno {% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <div class="card shadow">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <h2>Expediente del Alumno</h2>
-                <div>
-                    <a href="{% url 'editar_alumno' alumno.id_alumno %}"class="btn btn-warning">Editar</a>
-                    <a href="{% url 'lista_alumnos' %}"class="btn btn-secondary">Regresar</a>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center mb-4">
-                {% if alumno.foto %}
-                    <img src="{{ alumno.foto.url }}" class="foto">
-                {% endif %}
-            </div>
-            <div class="seccion">
-                Datos Personales
-            </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>ID</th>
-                    <td>{{ alumno.id_alumno }}</td>
-                </tr>
-                <tr>
-                    <th>Nombre</th>
-                    <td>{{ alumno.nombre }}</td>
-                </tr>
-                <tr>
-                    <th>Apellido paterno</th>
-                    <td>{{ alumno.apellido_paterno }}</td>
-                </tr>
-                <tr>
-                    <th>Apellido materno</th>
-                    <td>{{ alumno.apellido_materno }}</td>
-                </tr>
-                <tr>
-                    <th>Edad</th>
-                    <td>{{ alumno.edad_calculada }}</td>
-                </tr>
-                <tr>
-                    <th>Estado</th>
-                    <td>{{ alumno.estado }}</td> <<!-- C A M B I A R  -->
-                </tr>
-                <tr>
-                    <th>Teléfono del alumno</th>
-                    <td>{{ alumno.contacto_alumno }}</td>
-                </tr>
-                <tr>
-                    <th>Tipo de contacto del alumno</th>
-                    <td>{{ alumno.get_contacto_alumno_tipo_display }}</td>
-                </tr>
-                <tr>
-                    <th>Correo electrónico del alumno</th>
-                    <td>{{ alumno.correo_electronico }}</td>
-                </tr>
-                <tr>
-                    <th>Fecha nacimiento</th>
-                    <td>{{ alumno.fecha_nacimiento|date:"d/m/Y" }}</td>
-                </tr>
-            </table>
-            <div class="seccion">
-                Datos Médicos
-            </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>Alergias</th>
-                    <td>
-                        {% if alumno.alergias %}
-                            Sí
-                        {% else %}
-                            No
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Detalle alergias</th>
-                    <td>{{ alumno.alergias_detalle }}</td>
-                </tr>
-                <tr>
-                    <th>Alergia medicamento</th>
-                    <td>
-                        {% if alumno.alergico_medicamento %}
-                            Sí
-                        {% else %}
-                            No
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Medicamento</th>
-                    <td>{{ alumno.alergico_medicamento_detalle }}</td>
-                </tr>
-                <tr>
-                    <th>Tipo de sangre</th>
-                    <td>{{ alumno.get_tipo_sangre_display }}</td>
-                </tr>
-            </table>
-            <div class="seccion">
-                Datos de la Madre
-            </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>Nombre(s)</th>
-                    <td>{{ alumno.madre_nombre }}</td>
-                </tr>
-                <tr>
-                    <th>Apellido paterno</th>
-                    <td>{{ alumno.madre_apellido_paterno }}</td>
-                </tr>
-                <tr>
-                    <th>Apellido materno</th>
-                    <td>{{ alumno.madre_apellido_materno }}</td>
-                </tr>
-                <tr>
-                    <th>Número telefónico</th>
-                    <td>{{ alumno.madre_telefono }}</td>
-                </tr>
-                <tr>
-                    <th>Tipo de contacto</th>
-                    <td>{{ alumno.get_madre_contacto_tipo_display }}</td>
-                </tr>
-                <tr>
-                    <th>Correo electrónico</th>
-                    <td>{{ alumno.madre_correo }}</td>
-                </tr>
-            </table>
-            <div class="seccion">
-                Datos del Padre
-            </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>Nombre(s)</th>
-                    <td>{{ alumno.padre_nombre }}</td>
-                </tr>
-                <tr>
-                    <th>Apellido paterno</th>
-                    <td>{{ alumno.padre_apellido_paterno }}</td>
-                </tr>
-                <tr>
-                    <th>Apellido materno</th>
-                    <td>{{ alumno.padre_apellido_materno }}</td>
-                </tr>
-                <tr>
-                    <th>Número telefónico</th>
-                    <td>{{ alumno.padre_telefono }}</td>
-                </tr>
-                <tr>
-                    <th>Tipo de contacto</th>
-                    <td>{{ alumno.get_padre_contacto_tipo_display }}</td>
-                </tr>
-                <tr>
-                    <th>Correo electrónico</th>
-                    <td>{{ alumno.padre_correo }}</td>
-                </tr>
-            </table>
-            <div class="seccion">
-                Datos Escolares
-            </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>Escuela</th>
-                    <td>{{ alumno.escuela }}</td>
-                </tr>
-                <tr>
-                    <th>Grado</th>
-                    <td>{{ alumno.get_grado_display }}</td>
-                </tr>
-                <tr>
-                    <th>Año</th>
-                    <td>{{ alumno.get_año_display }}</td>
-                </tr>
-                <tr>
-                    <th>Promedio</th>
-                    <td>{{ alumno.promedio_anterior }}</td>
-                </tr>
-            </table>
-            <div class="seccion">
-                Datos de Contacto
-            </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>Persona que recoge</th>
-                    <td>{{ alumno.persona_recoge }}</td>
-                </tr>
-                <tr>
-                    <th>Teléfono del padre/tutor</th>
-                    <td>{{ alumno.contacto_otro }}</td>
-                </tr>
-                <tr>
-                    <th>Tipo de contacto del padre/tutor</th>
-                    <td>{{ alumno.get_contacto_otro_tipo_display }}</td>
-                </tr>
-            </table>
-            <div class="seccion">
-            <div class="seccion">
-                Datos Internos
-            </div>
 
-            <table class="table table-bordered">
-                <tr>
-                    <th>Fecha de creación</th>
-                    <td>{{ alumno.fecha_creacion|date:"d/m/Y H:i" }}</td>
-                </tr>
+<div class="expediente-card">
 
-                <tr>
-                    <th>Última actualización</th>
-                    <td>{{ alumno.fecha_actualizacion|date:"d/m/Y H:i" }}</td>
-                </tr>
+    <div class="expediente-header">
+        <h2> Expediente del Alumno</h2>
 
-                <tr>
-                    <th>Observaciones</th>
-                    <td>{{ alumno.observaciones }}</td>
-                </tr>
-            </table>
-            <h3>Inscripciones</h3>
+        <div class="acciones">
+            <a href="{% url 'editar_alumno' alumno.id_alumno %}" class="btn-editar-exp">
+                Editar
+            </a>
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Curso</th>
-                        <th>Grupo</th>
-                        <th>Fecha inscripción</th>
-                        <th>Contrato</th>
-                        <th>Estatus</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                {% for inscripcion in alumno.inscripciones.all %}
-                    <tr>
-                        <td>{{ inscripcion.grupo.curso.nombre }}</td>
-                        <td>{{ inscripcion.grupo.nombre }}</td>
-                        <td>{{ inscripcion.fecha_inscripcion|date:"d/m/Y" }}</td>
-                        <td>{{ inscripcion.contrato }}</td>
-                        <td>{{ inscripcion.get_estatus_display }}</td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="5">Sin inscripciones</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <a href="{% url 'lista_alumnos' %}" class="btn-regresar-exp">
+                Regresar
+            </a>
         </div>
     </div>
+
+    <div class="expediente-contenido">
+
+        <div class="foto-alumno">
+            {% if alumno.foto %}
+                <img src="{{ alumno.foto.url }}" alt="Foto alumno">
+            {% endif %}
+        </div>
+
+        <div class="titulo-Az">
+            <h2>Datos Personales</h2>
+        </div>
+
+        <table class="tabla-expediente">
+            <tr>
+                <th>ID</th>
+                <td>{{ alumno.id_alumno }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ alumno.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido paterno</th>
+                <td>{{ alumno.apellido_paterno }}</td>
+            </tr>
+            <tr>
+                <th>Apellido materno</th>
+                <td>{{ alumno.apellido_materno }}</td>
+            </tr>
+            <tr>
+                <th>Edad</th>
+                <td>{{ alumno.edad_calculada }}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{{ alumno.estado }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono del alumno</th>
+                <td>{{ alumno.contacto_alumno }}</td>
+            </tr>
+            <tr>
+                <th>Tipo de contacto</th>
+                <td>{{ alumno.get_contacto_alumno_tipo_display }}</td>
+            </tr>
+            <tr>
+                <th>Correo electrónico</th>
+                <td>{{ alumno.correo_electronico }}</td>
+            </tr>
+            <tr>
+                <th>Fecha nacimiento</th>
+                <td>{{ alumno.fecha_nacimiento|date:"d/m/Y" }}</td>
+            </tr>
+        </table>
+
+        <div class="titulo-az">
+            <h2>Datos Médicos</h2>
+        </div>
+
+        <table class="tabla-expediente">
+            <tr>
+                <th>Alergias</th>
+                <td>{% if alumno.alergias %}Sí{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Detalle alergias</th>
+                <td>{{ alumno.alergias_detalle }}</td>
+            </tr>
+            <tr>
+                <th>Alergia medicamento</th>
+                <td>{% if alumno.alergico_medicamento %}Sí{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Medicamento</th><td>{{ alumno.alergico_medicamento_detalle }}</td>
+            </tr>
+            <tr>
+                <th>Tipo de sangre</th>
+                <td>{{ alumno.get_tipo_sangre_display }}</td>
+            </tr>
+        </table>
+
+        <div class="titulo-Ama">
+            <h2>Datos de la Madre</h2>
+        </div>
+
+        <table class="tabla-expediente">
+            <tr>
+                <th>Nombre(s)</th>
+                <td>{{ alumno.madre_nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido paterno</th>
+                <td>{{ alumno.madre_apellido_paterno }}</td>
+            </tr>
+            <tr>
+                <th>Apellido materno</th>
+                <td>{{ alumno.madre_apellido_materno }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono</th>
+                <td>{{ alumno.madre_telefono }}</td>
+            </tr>
+            <tr>
+                <th>Tipo de contacto</th>
+                <td>{{ alumno.get_madre_contacto_tipo_display }}</td>
+            </tr>
+            <tr>
+                <th>Correo electrónico</th>
+                <td>{{ alumno.madre_correo }}</td>
+            </tr>
+        </table>
+
+        <div class="titulo-Ver">
+            <h2>Datos del Padre</h2>
+        </div>
+
+        <table class="tabla-expediente">
+            <tr>
+                <th>Nombre(s)</th>
+                <td>{{ alumno.padre_nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido paterno</th>
+                <td>{{ alumno.padre_apellido_paterno }}</td>
+            </tr>
+            <tr>
+                <th>Apellido materno</th>
+                <td>{{ alumno.padre_apellido_materno }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono</th>
+                <td>{{ alumno.padre_telefono }}</td>
+            </tr>
+            <tr>
+                <th>Tipo de contacto</th>
+                <td>{{ alumno.get_padre_contacto_tipo_display }}</td>
+            </tr>
+            <tr>
+                <th>Correo electrónico</th>
+                <td>{{ alumno.padre_correo }}</td>
+            </tr>
+        </table>
+
+        <div class="titulo-Az">
+            <h2>Datos Escolares</h2>
+        </div>
+
+        <table class="tabla-expediente">
+            <tr>
+                <th>Escuela</th>
+                <td>{{ alumno.escuela }}</td>
+            </tr>
+            <tr>
+                <th>Nivel Escolar</th>
+                <td>{{ alumno.get_grado_display }}</td>
+            </tr>
+            <tr>
+                <th>Año Escolar</th>
+                <td>{{ alumno.get_año_display }}</td>
+            </tr>
+            <tr>
+                <th>Promedio</th>
+                <td>{{ alumno.promedio_anterior }}</td>
+            </tr>
+        </table>
+
+        <div class="titulo-Ama">
+            <h2>Datos de Contacto</h2>
+        </div>
+
+        <table class="tabla-expediente">
+            <tr>
+                <th>Persona que recoge</th>
+                <td>{{ alumno.persona_recoge }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono del padre/tutor</th>
+                <td>{{ alumno.contacto_otro }}</td>
+            </tr>
+            <tr>
+                <th>Tipo de contacto</th>
+                <td>{{ alumno.get_contacto_otro_tipo_display }}</td>
+            </tr>
+        </table>
+
+        <div class="titulo-Ver">
+            <h2>Datos Internos</h2>
+        </div>
+
+        <table class="tabla-expediente">
+            <tr>
+                <th>Fecha de creación</th>
+                <td>{{ alumno.fecha_creacion|date:"d/m/Y H:i" }}</td>
+            </tr>
+            <tr>
+                <th>Última actualización</th>
+                <td>{{ alumno.fecha_actualizacion|date:"d/m/Y H:i" }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th><td>{{ alumno.observaciones }}</td>
+            </tr>
+        </table>
+
+        <div class="titulo-az">
+            <h2>Inscripciones</h2>
+        </div>
+
+        <table class="inscripciones-tabla">
+            <thead>
+                <tr>
+                    <th>Curso</th>
+                    <th>Grupo</th>
+                    <th>Fecha inscripción</th>
+                    <th>Contrato</th>
+                    <th>Estatus</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inscripcion in alumno.inscripciones.all %}
+                <tr>
+                    <td>{{ inscripcion.grupo.curso.nombre }}</td>
+                    <td>{{ inscripcion.grupo.nombre }}</td>
+                    <td>{{ inscripcion.fecha_inscripcion|date:"d/m/Y" }}</td>
+                    <td>{{ inscripcion.contrato }}</td>
+                    <td>{{ inscripcion.get_estatus_display }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">Sin inscripciones</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
 </div>
+
 {% endblock %}

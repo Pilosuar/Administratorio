@@ -2,12 +2,23 @@
 
 {% block title %} Editar inscripcion {% endblock %}
 {% block body %}
-    <h1>Editar Inscripción</h1>
+    <div class="titulo-az">
+        <h2>Editar Inscripción</h2>
+    </div>
+    
     <form method="post">
         {% csrf_token %}
-
-        {{ form.as_p }}
-        <button type="submit">Actualizar</button>
-        <a href="{% url 'lista_inscripciones' %}">Cancelar</a>
+        <div class="card-individual">
+            <div class="tabla-individual">
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="submit-container">
+            <button type="submit" class="btn-guardar">Actualizar</button>
+            <a href="{% url 'lista_inscripciones' %}" class="btn-cancelar">Cancelar</a>
+        </div>
     </form>
 {% endblock %}

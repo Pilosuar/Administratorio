@@ -2,41 +2,58 @@
 
 {% block title %} Inscripciones {% endblock %}
 {% block body %}
-    <h1>Lista de Inscripciones</h1>
-    <a href="{% url 'crear_inscripcion' %}">Nueva Inscripción</a>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Alumno</th>
-                <th>Grupo</th>
-                <th>Fecha inscripción</th>
-                <th>Estatus</th>
-                <th>Fecha baja</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for inscripcion in inscripciones %}
-            <tr>
-                <td>{{ inscripcion.alumno }}</td>
-                <td>{{ inscripcion.grupo }}</td>
-                <td>{{ inscripcion.fecha_inscripcion }}</td>
-                <td>{{ inscripcion.estatus }}</td>
-                <td>{{ inscripcion.fecha_baja }}</td>
-                <td>
-                    <a href="{% url 'editar_inscripcion' inscripcion.id %}">Editar</a>
-                    <a href="{% url 'eliminar_inscripcion' inscripcion.id %}">Eliminar</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">
-                    No hay inscripciones registradas.
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="titulo-Az">
+        <h2>Lista de Inscripciones</h2>
+    </div>
+    
+    <div class="btn-agregar">
+        <a href="{% url 'crear_inscripcion' %}" class="btn-nuevo-alumno">
+            Nueva Inscripción
+        </a>
+    </div>
+
+    <div class="card-individual">
+        <div class="tabla-individual">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="Az">Alumno</th>
+                        <th class="Ama">Grupo</th>
+                        <th class="Ver">Fecha inscripción</th>
+                        <th class="Az">Estatus</th>
+                        <th class="Ama">Fecha baja</th>
+                        <th class="az">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for inscripcion in inscripciones %}
+                    <tr>
+                        <td>{{ inscripcion.alumno }}</td>
+                        <td>{{ inscripcion.grupo }}</td>
+                        <td>{{ inscripcion.fecha_inscripcion }}</td>
+                        <td>{{ inscripcion.estatus }}</td>
+                        <td>{{ inscripcion.fecha_baja }}</td>
+                        <td>
+                            <a href="{% url 'editar_inscripcion' inscripcion.id %}" class="btn-editar">
+                                Editar
+                            </a>
+                            <a href="{% url 'eliminar_inscripcion' inscripcion.id %}" class="btn-eliminar">
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">
+                            No hay inscripciones registradas.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
 
 

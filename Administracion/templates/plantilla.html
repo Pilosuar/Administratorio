@@ -1,25 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	<title>{% block title %} Administracion {% endblock %}</title>
 </head>
 <body>
-	<div style="background-color: #0104">
 		
-	<h1>BARRA DE NAVEGACION</h1>
-		<ul>
-			<li><a href="{% url 'lista_cursos' %}">Cursos</a></li>
-			<li><a href="{% url 'lista_grupos' %}">Grupos</a></li>
-			<li><a href="{% url 'lista_inscripciones' %}">Inscripciones</a></li>
-			<li><a href="{% url 'lista_alumnos' %}">Alumnos</a></li>
-		</ul>
-	</div>
-	<div style="background-color: #0014">
-		{% block body %}
+	<header class="header">
+		<div class="header-content">
+			<img src="{% static 'images/logo.jpg' %}" alt="Logo">
+			<h1>Sistema de Administración</h1>
+		</div>
+	</header>
 
+	<div class="separador-amarrillo"></div>
+
+	<nav class="navbar">
+		<ul>
+			<li>
+				<a href="{% url 'lista_cursos' %}">
+					Cursos
+				</a>
+			</li>
+
+			<li>
+				<a href="{% url 'lista_grupos' %}">
+					Grupos
+				</a>
+			</li>
+
+			<li>
+				<a href="{% url 'lista_inscripciones' %}">
+					Inscripciones
+				</a>
+			</li>
+
+			<li>
+				<a href="{% url 'lista_alumnos' %}">
+					Alumnos
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<main class="container">
+		{% block body %}
 		{% endblock %}
-	</div>
+	</main>
+
+	<footer class="seccion-verde">
+		<p>Sistema de Administración</p>
+	</footer>
+	
 </body>
 </html>
