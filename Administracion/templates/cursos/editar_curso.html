@@ -1,13 +1,28 @@
 {% extends 'plantilla.html' %}
 
-{% block title %} Editar curso {% endblock %}
+{% block title %} Crear curso {% endblock %}
 {% block body %}
-    <h1>Editar Curso</h1>
+
+    <div class="titulo-Ver">
+        <h2>Registrar Curso</h2>
+    </div>
+    
+
     <form method="post">
         {% csrf_token %}
 
-        {{ form.as_p }}
-        <button type="submit">Actualizar</button>
-        <a href="{% url 'lista_cursos' %}">Cancelar</a>
+        <div class="card-individual">
+            <div class="tabla-individual">
+                    <div class="form-group">
+                        {{ form.as_p }}
+                    </div>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="submit" class="btn-guardar">Guardar</button>
+            <a href="{% url 'lista_cursos' %}" class="btn-cancelar">Cancelar</a>
+        </div>
+        
     </form>
 {% endblock %}

@@ -2,12 +2,24 @@
 
 {% block title %} Crear inscipcion {% endblock %}
 {% block body %}
-    <h1>Registrar Inscripción</h1>
+    <div class="titulo-Ama">
+        <h2>Registrar Inscripción</h2>
+    </div>
+    
     <form method="post">
         {% csrf_token %}
-        
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
-        <a href="{% url 'lista_inscripciones' %}">Cancelar</a>
+
+        <div class="card-individual">
+            <div class="tabla-individual">
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="submit" class="btn-guardar">Guardar</button>
+            <a href="{% url 'lista_inscripciones' %}" class="btn-cancelar">Cancelar</a>
+        </div>
     </form>
 {% endblock %}

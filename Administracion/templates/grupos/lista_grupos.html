@@ -2,20 +2,32 @@
 
 {% block title %} Ver grupos {% endblock %}
 {% block body %}
-    <h1>Lista de Grupos</h1>
-    <a href="{% url 'crear_grupo' %}">Nuevo Grupo</a>
-    <table border="1">
+    <div class="titulo-Ver">
+        <h2>Lista de Grupos</h2>
+    </div>
+    
+    <div class="btn-agregar">
+        <a href="{% url 'crear_grupo' %}" class="btn-nuevo-alumno">
+            Nuevo Grupo
+        </a>
+    </div>
+
+
+<div class="card-individual">
+        <div class="tabla-individual">
+    <table>
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Curso</th>
-                <th>Horario</th>
-                <th>Cupo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
-                <th>Acciones</th>
+                <th class="Az">Nombre</th>
+                <th class="Ama">Curso</th>
+                <th class="Ver">Horario</th>
+                <th class="Az">Cupo</th>
+                <th class="Ama">Inicio</th>
+                <th class="Ver">Fin</th>
+                <th class="az">Acciones</th>
             </tr>
         </thead>
+
         <tbody>
             {% for grupo in grupos %}
             <tr>
@@ -26,8 +38,12 @@
                 <td>{{ grupo.fecha_inicio }}</td>
                 <td>{{ grupo.fecha_fin }}</td>
                 <td>
-                    <a href="{% url 'editar_grupo' grupo.id %}">Editar</a>
-                     <a href="{% url 'eliminar_grupo' grupo.id %}">Eliminar</a>
+                    <a href="{% url 'editar_grupo' grupo.id %}" class="btn-editar">
+                        Editar
+                    </a>
+                     <a href="{% url 'eliminar_grupo' grupo.id %}" class="btn-eliminar">
+                        Eliminar
+                    </a>
                 </td>
             </tr>
             {% empty %}
@@ -39,6 +55,8 @@
             {% endfor %}
         </tbody>
     </table>
+        </div>
+    </div> 
 {% endblock %}
 
 

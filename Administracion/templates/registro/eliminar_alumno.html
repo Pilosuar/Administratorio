@@ -1,21 +1,44 @@
 {% extends 'plantilla.html' %}
 
-{% block title %} Eliminar alumno {% endblock %}
+{% block title %}Eliminar Alumno{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <div class="alert alert-danger">
-        <h3>¿Eliminar alumno?</h3>
-        <p>
+
+<div class="card">
+
+    <div class="titulo-Ama">
+        <h2>Eliminar Alumno</h2>
+    </div>
+
+    <p style="text-align:center; font-size:18px; margin-bottom:25px;">
+        ¿Está seguro que desea eliminar al alumno?
+    </p>
+
+    <p style="text-align:center; font-size:20px; margin-bottom:30px;">
+        <strong>
             {{ alumno.nombre }}
             {{ alumno.apellido_paterno }}
             {{ alumno.apellido_materno }}
-        </p>
-        <form method="POST">
-            {% csrf_token %}
-            <button class="btn btn-danger">Sí, eliminar</button>
-            <a href="{% url 'lista_alumnos' %}" class="btn btn-secondary">Cancelar</a>
-        </form>
-    </div>
+        </strong>
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="submit-container">
+            <button type="submit" class="btn-cancelar">
+                Sí, eliminar
+            </button>
+
+            <a href="{% url 'lista_alumnos' %}"
+               class="btn-guardar"
+               style="text-decoration:none; display:inline-block; margin-left:10px;">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+
 </div>
+
 {% endblock %}

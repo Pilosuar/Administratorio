@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 <div class="container">
     <div class="card shadow">
         <div class="card-body">
             <h2 class="text-center mb-4">
                 Registro de Alumno</h2>
+=======
+
+>>>>>>> a3f2a60bdbb5d6f1efcace8907ebc101b5a83b1f
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
@@ -21,294 +25,358 @@
                 </ul>
             </div>
                 {% endif %}
-    </div>
-                <h3>Datos Personales</h3>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
+
+                <div class="card">
+            <div class="card-container">
+                <div class="titulo-Az">
+                    <h2>Información del Alumno</h2>
+                </div>
+                <div class="grid-form">
+                    <div class="form-group">
                         {{ form.nombre.label_tag }}
                         {{ form.nombre }}
                         {% if form.nombre.errors %}
-                            <div class="text-danger">{{ form.nombre.errors.0 }}</div>
+                        <div class="text-danger">{{ form.nombre.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="form-group">
                         {{ form.apellido_paterno.label_tag }}
                         {{ form.apellido_paterno }}
                         {% if form.apellido_paterno.errors %}
-                            <div class="text-danger">{{ form.apellido_paterno.errors.0 }}</div>
+                        <div class="text-danger">{{ form.apellido_paterno.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="form-group">
                         {{ form.apellido_materno.label_tag }}
                         {{ form.apellido_materno }}
                         {% if form.apellido_materno.errors %}
-                            <div class="text-danger">{{ form.apellido_materno.errors.0 }}</div>
+                        <div class="text-danger">{{ form.apellido_materno.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-3 mb-3">
+
+                    <div class="form-group">
+                        <label class="form-label">Edad calculada</label>
+                        <input type="text" id="edad_calculada" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group">
                         {{ form.fecha_nacimiento.label_tag }}
                         {{ form.fecha_nacimiento }}
                         {% if form.fecha_nacimiento.errors %}
-                            <div class="text-danger">{{ form.fecha_nacimiento.errors.0 }}</div>
+                        <div class="text-danger">{{ form.fecha_nacimiento.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Edad calculada</label>
-                        <input
-                            type="text"
-                            id="edad_calculada"
-                            class="form-control"
-                            readonly
-                        >
-                    </div>
-                    <div class="col-md-3 mb-3">
+
+                    <div class="form-group">
                         {{ form.foto.label_tag }}
                         {{ form.foto }}
-                            {% if form.foto.field.required %}
-                                <span class="text-danger">*</span>
-                            {% endif %}
+                        {% if form.foto.field.required %}
+                        <span class="text-danger">*</span>
+                        {% endif %}
                         {% if form.foto.errors %}
-                            <div class="text-danger">{{ form.foto.errors.0 }}</div>
+                        <div class="text-danger">{{ form.foto.errors.0 }}</div>
                         {% endif %}
                     </div>
-                
-                        <div class="col-md-4 mb-3">
-                            {{ form.contacto_alumno.label_tag }}
-                            {{ form.contacto_alumno }}
-                            {% if form.contacto_alumno.errors %}
-                                <div class="text-danger">{{ form.contacto_alumno.errors.0 }}</div>
-                            {% endif %}
-                        </div>
 
-                        <div class="col-md-4 mb-3">
-                            {{ form.contacto_alumno_tipo.label_tag }}
-                            {{ form.contacto_alumno_tipo }}
-                            {% if form.contacto_alumno_tipo.errors %}
-                                <div class="text-danger">{{ form.contacto_alumno_tipo.errors.0 }}</div>
-                            {% endif %}
-                        </div>
+                    <div class="form-group">
+                        {{ form.contacto_alumno.label_tag }}
+                        {{ form.contacto_alumno }}
+                        {% if form.contacto_alumno.errors %}
+                        <div class="text-danger">{{ form.contacto_alumno.errors.0 }}</div>
+                        {% endif %}
+                    </div>
 
-                        <div class="col-md-4 mb-3">
-                            {{ form.correo_electronico.label_tag }}
-                            {{ form.correo_electronico }}
-                            {% if form.correo_electronico.errors %}
-                                <div class="text-danger">{{ form.correo_electronico.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            {{ form.estatus.label_tag }}
-                            {{ form.estatus }}
-                            {% if form.estatus.errors %}
-                                <div class="text-danger">{{ form.estatus.errors.0 }}</div>
-                            {% endif %}
-                        </div>
+                    <div class="form-group">
+                        {{ form.contacto_alumno_tipo.label_tag }}
+                        {{ form.contacto_alumno_tipo }}
+                        {% if form.contacto_alumno_tipo.errors %}
+                        <div class="text-danger">{{ form.contacto_alumno_tipo.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.correo_electronico.label_tag }}
+                        {{ form.correo_electronico }}
+                        {% if form.correo_electronico.errors %}
+                        <div class="text-danger">{{ form.correo_electronico.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.estatus.label_tag }}
+                        {{ form.estatus }}
+                        {% if form.estatus.errors %}
+                        <div class="text-danger">{{ form.estatus.errors.0 }}</div>
+                        {% endif %}
+                    </div>
                 </div>
-                <!-- DATOS MÉDICOS -->
-                <h3>Datos Médicos</h3>
-                <div class="row">
-                    <div class="col-md-2 mb-3">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-container">
+                <div class="titulo-az">
+                    <h2>Datos Médicos</h2>
+                </div>
+                <div class="grid-form">
+
+                    <div class="form-group">
                         {{ form.alergias.label_tag }}
                         {{ form.alergias }}
                         {% if form.alergias.errors %}
-                            <div class="text-danger">{{ form.alergias.errors.0 }}</div>
+                        <div class="text-danger">{{ form.alergias.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-5 mb-3">
+
+                    <div class="form-group">
                         {{ form.alergias_detalle.label_tag }}
                         {{ form.alergias_detalle }}
                         {% if form.alergias_detalle.errors %}
-                            <div class="text-danger">{{ form.alergias_detalle.errors.0 }}</div>
+                        <div class="text-danger">{{ form.alergias_detalle.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-2 mb-3">
+
+                    <div class="form-group">
                         {{ form.alergico_medicamento.label_tag }}
                         {{ form.alergico_medicamento }}
                         {% if form.alergico_medicamento.errors %}
-                            <div class="text-danger">{{ form.alergico_medicamento.errors.0 }}</div>
+                        <div class="text-danger">{{ form.alergico_medicamento.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-3 mb-3">
+
+                    <div class="form-group">
                         {{ form.alergico_medicamento_detalle.label_tag }}
                         {{ form.alergico_medicamento_detalle }}
                         {% if form.alergico_medicamento_detalle.errors %}
-                            <div class="text-danger">{{ form.alergico_medicamento_detalle.errors.0 }}</div>
+                        <div class="text-danger">{{ form.alergico_medicamento_detalle.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-3 mb-3">
+
+                    <div class="form-group">
                         {{ form.tipo_sangre.label_tag }}
                         {{ form.tipo_sangre }}
                         {% if form.tipo_sangre.errors %}
-                            <div class="text-danger">{{ form.tipo_sangre.errors.0 }}</div>
+                        <div class="text-danger">{{ form.tipo_sangre.errors.0 }}</div>
                         {% endif %}
                     </div>
                 </div>
-                <!-- DATOS DE LA MADRE -->
-                <h3>Datos de la Madre</h3>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-container">
+                <div class="titulo-Ama">
+                    <h2>Datos de la Madre</h2>
+                </div>
+                <div class="grid-form">
+
+                    <div class="form-group">
                         {{ form.madre_nombre.label_tag }}
                         {{ form.madre_nombre }}
                         {% if form.madre_nombre.errors %}
-                            <div class="text-danger">{{ form.madre_nombre.errors.0 }}</div>
+                        <div class="text-danger">{{ form.madre_nombre.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="form-group">
                         {{ form.madre_apellido_paterno.label_tag }}
                         {{ form.madre_apellido_paterno }}
                         {% if form.madre_apellido_paterno.errors %}
-                            <div class="text-danger">{{ form.madre_apellido_paterno.errors.0 }}</div>
+                        <div class="text-danger">{{ form.madre_apellido_paterno.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="form-group">
                         {{ form.madre_apellido_materno.label_tag }}
                         {{ form.madre_apellido_materno }}
                         {% if form.madre_apellido_materno.errors %}
-                            <div class="text-danger">{{ form.madre_apellido_materno.errors.0 }}</div>
+                        <div class="text-danger">{{ form.madre_apellido_materno.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-3 mb-3">
+
+                    <div class="form-group">
                         {{ form.madre_telefono.label_tag }}
                         {{ form.madre_telefono }}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="form-group">
                         {{ form.madre_contacto_tipo.label_tag }}
                         {{ form.madre_contacto_tipo }}
 
                         {% if form.madre_contacto_tipo.errors %}
-                            <div class="text-danger">
-                                {{ form.madre_contacto_tipo.errors.0 }}
-                            </div>
+                        <div class="text-danger">
+                            {{ form.madre_contacto_tipo.errors.0 }}
+                        </div>
                         {% endif %}
                     </div>
 
-                    <div class="col-md-3 mb-3">
+                    <div class="form-group">
                         {{ form.madre_correo.label_tag }}
                         {{ form.madre_correo }}
                     </div>
                 </div>
-                <!-- DATOS DEL PADRE -->
-                <h3>Datos del Padre</h3>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-container">
+                <div class="titulo-Ver">
+                    <h2>Datos del Padre</h2>
+                </div>
+                <div class="grid-form">
+
+                    <div class="form-group">
                         {{ form.padre_nombre.label_tag }}
                         {{ form.padre_nombre }}
                         {% if form.padre_nombre.errors %}
-                            <div class="text-danger">{{ form.padre_nombre.errors.0 }}</div>
+                        <div class="text-danger">{{ form.padre_nombre.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="form-group">
                         {{ form.padre_apellido_paterno.label_tag }}
                         {{ form.padre_apellido_paterno }}
                         {% if form.padre_apellido_paterno.errors %}
-                            <div class="text-danger">{{ form.padre_apellido_paterno.errors.0 }}</div>
+                        <div class="text-danger">{{ form.padre_apellido_paterno.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="form-group">
                         {{ form.padre_apellido_materno.label_tag }}
                         {{ form.padre_apellido_materno }}
                         {% if form.padre_apellido_materno.errors %}
-                            <div class="text-danger">{{ form.padre_apellido_materno.errors.0 }}</div>
+                        <div class="text-danger">{{ form.padre_apellido_materno.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-3 mb-3">
+
+                    <div class="form-group">
                         {{ form.padre_telefono.label_tag }}
                         {{ form.padre_telefono }}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="form-group">
                         {{ form.padre_contacto_tipo.label_tag }}
                         {{ form.padre_contacto_tipo }}
 
                         {% if form.padre_contacto_tipo.errors %}
-                            <div class="text-danger">
-                                {{ form.padre_contacto_tipo.errors.0 }}
-                            </div>
+                        <div class="text-danger">
+                            {{ form.padre_contacto_tipo.errors.0 }}
+                        </div>
                         {% endif %}
                     </div>
-                    <div class="col-md-3 mb-3">
+
+                    <div class="form-group">
                         {{ form.padre_correo.label_tag }}
                         {{ form.padre_correo }}
                     </div>
                 </div>
-                <!-- DATOS ESCOLARES -->
-                <h3>Datos Escolares</h3>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-container">
+                <div class="titulo-Az">
+                    <h2>Datos Escolares</h2>
+                </div>
+                <div class="grid-form">
+
+                    <div class="form-group">
                         {{ form.escuela.label_tag }}
                         {{ form.escuela }}
                         {% if form.escuela.errors %}
-                            <div class="text-danger">{{ form.escuela.errors.0 }}</div>
+                        <div class="text-danger">{{ form.escuela.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-2 mb-3">
+
+                    <div class="form-group">
                         {{ form.grado.label_tag }}
                         {{ form.grado }}
                         {% if form.grado.errors %}
-                            <div class="text-danger">{{ form.grado.errors.0 }}</div>
+                        <div class="text-danger">{{ form.grado.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-2 mb-3">
+
+                    <div class="form-group">
                         {{ form.año.label_tag }}
                         {{ form.año }}
                         {% if form.año.errors %}
-                            <div class="text-danger">{{ form.año.errors.0 }}</div>
+                        <div class="text-danger">{{ form.año.errors.0 }}</div>
                         {% endif %}
                     </div>
-                    <div class="col-md-2 mb-3">
+
+                    <div class="form-group">
                         {{ form.promedio_anterior.label_tag }}
                         {{ form.promedio_anterior }}
                         {% if form.promedio_anterior.errors %}
-                            <div class="text-danger">{{ form.promedio_anterior.errors.0 }}</div>
+                        <div class="text-danger">{{ form.promedio_anterior.errors.0 }}</div>
                         {% endif %}
                     </div>
                 </div>
-                    <!-- DATOS DE CONTACTO -->
-                    <h3>Datos de Referencia</h3>
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            {{ form.persona_recoge.label_tag }}
-                            {{ form.persona_recoge }}
-                            {% if form.persona_recoge.errors %}
-                                <div class="text-danger">{{ form.persona_recoge.errors.0 }}</div>
-                            {% endif %}
-                        </div>
+            </div>
+        </div>
 
-                        <div class="col-md-4 mb-3">
-                            {{ form.contacto_otro.label_tag }}
-                            {{ form.contacto_otro }}
-                            {% if form.contacto_otro.errors %}
-                                <div class="text-danger">{{ form.contacto_otro.errors.0 }}</div>
-                            {% endif %}
-                        </div>
+        <div class="card">
+            <div class="card-container">
+                <div class="titulo-Ama">
+                    <h2>Datos de Referencia</h2>
+                </div>
+                <div class="grid-form">
 
-                        <div class="col-md-4 mb-3">
-                            {{ form.contacto_otro_tipo.label_tag }}
-                            {{ form.contacto_otro_tipo }}
-                            {% if form.contacto_otro_tipo.errors %}
-                                <div class="text-danger">{{ form.contacto_otro_tipo.errors.0 }}</div>
-                            {% endif %}
-                        </div>
+                    <div class="form-group">
+                        {{ form.persona_recoge.label_tag }}
+                        {{ form.persona_recoge }}
+                        {% if form.persona_recoge.errors %}
+                        <div class="text-danger">{{ form.persona_recoge.errors.0 }}</div>
+                        {% endif %}
                     </div>
-                    <!-- DATOS INTERNOS -->
-                    <h3>Datos de control interno</h3>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            {{ form.observaciones.label_tag }}
-                            {{ form.observaciones }}
-                            {% if form.observaciones.errors %}
-                                <div class="text-danger">{{ form.observaciones.errors.0 }}</div>
-                            {% endif %}
-                        </div>
+
+                    <div class="form-group">
+                        {{ form.contacto_otro.label_tag }}
+                        {{ form.contacto_otro }}
+                        {% if form.contacto_otro.errors %}
+                        <div class="text-danger">{{ form.contacto_otro.errors.0 }}</div>
+                        {% endif %}
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-success">
-                            Guardar Alumno
-                        </button>
-                        <a href="{% url 'lista_alumnos' %}"
-                           class="btn btn-secondary ms-2"
-                           onclick="return confirm('¿Desea cancelar el registro? Los datos capturados se perderán.');">
-                            Cancelar
-                        </a>
+
+                    <div class="form-group">
+                        {{ form.contacto_otro_tipo.label_tag }}
+                        {{ form.contacto_otro_tipo }}
+                        {% if form.contacto_otro_tipo.errors %}
+                        <div class="text-danger">{{ form.contacto_otro_tipo.errors.0 }}</div>
+                        {% endif %}
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-container">
+                <div class="titulo-Ver">
+                    <h2>Datos de Control Interno</h2>
+                </div>
+                <div class="grid-form">
+                    <div class="form-group">
+                    {{ form.observaciones.label_tag }}
+                    {{ form.observaciones }}
+                    {% if form.observaciones.errors %}
+                    <div class="text-danger">{{ form.observaciones.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="submit-container">
+                <button type="submit" class="btn-guardar">
+                    Guardar Alumno
+                </button>
+                <a href="{% url 'lista_alumnos' %}" class="btn-cancelar"
+                    onclick="return confirm('¿Desea cancelar el registro? Los datos capturados se perderán.');">
+                    Cancelar
+                </a>
+            </div>
                                 </form>
 
                             </div>
