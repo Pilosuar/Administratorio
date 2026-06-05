@@ -62,7 +62,7 @@ class GradoAcademico(models.TextChoices):
     PRIMARIA = "Primaria", "Primaria"
     SECUNDARIA = "Secundaria", "Secundaria"
     BACHILLERATO = "Bachillerato/Preparatoria", "Bachillerato/Preparatoria"
-    TSU = "TSU", "Técnico Superior Universitario"
+    TSU = "Tsu", "Técnico Superior Universitario"
     LICENCIATURA = "Licenciatura", "Licenciatura"
     INGENIERIA = "Ingenieria", "Ingeniería"
 
@@ -132,7 +132,7 @@ class Alumno(models.Model):
 
     # Datos escolares
     escuela = models.CharField(max_length=150)
-    grado = models.CharField(max_length=50, choices=GradoAcademico.choices, verbose_name="Nivel escolar")
+    grado = models.CharField(choices=GradoAcademico.choices, verbose_name="Nivel escolar")
     año = models.PositiveIntegerField(choices=AñoEscolar.choices, verbose_name="Año escolar")
     promedio_anterior = models.DecimalField(
         max_digits=4,
@@ -264,7 +264,7 @@ class Grupo(models.Model):
     def __str__(self):
         return self.nombre
 
-        
+
 ############################################
 #Modelo/tabla para el registro de inscripciones
 class Inscripcion(models.Model):
