@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Inscripciones</title>
-</head>
-<body>
+{% extends 'plantilla.html' %}
 
+
+{% block title %} Inscripciones {% endblock %}
+{% block body %}
     <h1>Lista de Inscripciones</h1>
 
     <a href="{% url 'crear_inscripcion' %}">
@@ -52,6 +49,4 @@
             {% endfor %}
         </tbody>
     </table>
-
-</body>
-</html>
+{% endblock %}

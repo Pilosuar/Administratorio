@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Grupo</title>
-</head>
-<body>
+{% extends 'plantilla.html' %}
+
+
+{% block title %} Editar grupo {% endblock %}
+{% block body %}
 
     <h1>Editar Grupo</h1>
 
@@ -16,6 +14,4 @@
         <button type="submit">Actualizar</button>
         <a href="{% url 'lista_grupos' %}">Cancelar</a>
     </form>
-
-</body>
-</html>
+{% endblock %}

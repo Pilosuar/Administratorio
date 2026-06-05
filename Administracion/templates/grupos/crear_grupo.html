@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Nuevo Grupo</title>
-</head>
-<body>
+{% extends 'plantilla.html' %}
+
+
+{% block title %} Crear grupo {% endblock %}
+{% block body %}
 
     <h1>Registrar Grupo</h1>
 
@@ -17,5 +15,4 @@
         <a href="{% url 'lista_grupos' %}">Cancelar</a>
     </form>
 
-</body>
-</html>
+{% endblock %}

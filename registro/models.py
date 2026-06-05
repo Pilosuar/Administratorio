@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 from datetime import date
 from PIL import Image
 
-
+#Función paara validar la foto del alumno
 def validar_resolucion_imagen(imagen):
     img = Image.open(imagen)
     ancho, alto = img.size
@@ -20,16 +20,19 @@ def validar_resolucion_imagen(imagen):
         "La imagen no puede superar los 2 MB."
         )
 
+#Validación para el número de télefono
 telefono_validator = RegexValidator(
     regex=r'^\d{10}$',
     message='Debe contener exactamente 10 dígitos.'
 )
 
+#Clase para listar los tipos de contacto
 class TipoContacto(models.TextChoices):
     SIN_CONTACTO = "", "Seleccionar"
     MOVIL = "Movil", "Móvil"
     FIJO = "Fijo", "Fijo"
 
+#Clase para listar los tipos de sangre
 class TipoSangre(models.TextChoices):
     A_POS = "A+", "A+"
     A_NEG = "A-", "A-"
@@ -40,18 +43,51 @@ class TipoSangre(models.TextChoices):
     O_POS = "O+", "O+"
     O_NEG = "O-", "O-"
 
+#Clase para listar los estatus del alumno
 class EstatusAlumno(models.TextChoices):
     ACTIVO = "Activo", "Activo"
     BAJA = "Baja", "Baja"
     EGRESADO = "Egresado", "Egresado"
     SUSPENDIDO = "Suspendido", "Suspendido"
 
+#Clase para listar los estatus de inscripcion
+class EstatusInscripcion(models.TextChoices):
+    ACTIVA = "Activa", "Activa"
+    FINALIZADA = "Finalizada", "Finalizada"
+    BAJA = "Baja", "Baja"
+    CANCELADA = "Cancelada", "Cancelada"
+
+#Clase para listar grados académicos
+class GradoAcademico(models.TextChoices):
+    PRIMARIA = "Primaria", "Primaria"
+    SECUNDARIA = "Secundaria", "Secundaria"
+    BACHILLERATO = "Bachillerato/Preparatoria", "Bachillerato/Preparatoria"
+    TSU = "TSU", "Técnico Superior Universitario"
+    LICENCIATURA = "Licenciatura", "Licenciatura"
+    INGENIERIA = "Ingenieria", "Ingeniería"
+
+#Clase para listar los años escolares
+class AñoEscolar(models.IntegerChoices):
+    PRIMERO = 1, "1°"
+    SEGUNDO = 2, "2°"
+    TERCERO = 3, "3°"
+    CUARTO = 4, "4°"
+    QUINTO = 5, "5°"
+    SEXTO = 6, "6°"
+    SEPTIMO = 7, "7°"
+    OCTAVO = 8, "8°"
+    NOVENO = 9, "9°"
+    DECIMO = 10, "10°"
+    UNDECIMO = 11, "11°"
+
+#Modelo/tabla para el registro de alumnos
 class Alumno(models.Model):
     id_alumno = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100, verbose_name="Nombre(s)")
     apellido_paterno = models.CharField(max_length=100, verbose_name="Apellido paterno")
     apellido_materno = models.CharField(max_length=100, verbose_name="Apellido materno")
 
+    #calcula la edad apartir de la fecha de nacimiento
     @property
     def edad_calculada(self):
         hoy = date.today()
@@ -64,14 +100,10 @@ class Alumno(models.Model):
                 <
                 (self.fecha_nacimiento.month,
                  self.fecha_nacimiento.day)
-            )
-        )
+            ))
     fecha_nacimiento = models.DateField()
-
     foto = models.ImageField(upload_to='alumnos/', validators=[validar_resolucion_imagen], verbose_name="Fotografía")
-
     contacto_alumno = models.CharField(max_length=10, verbose_name="Numero telefónico", validators=[telefono_validator],)
-
     contacto_alumno_tipo = models.CharField(max_length=10, choices=TipoContacto.choices, verbose_name="Tipo de contacto")
     correo_electronico = models.EmailField()
 
@@ -100,8 +132,8 @@ class Alumno(models.Model):
 
     # Datos escolares
     escuela = models.CharField(max_length=150)
-    grado = models.CharField(max_length=50, verbose_name="Nivel escolar")
-    año = models.PositiveIntegerField()
+    grado = models.CharField(max_length=50, choices=GradoAcademico.choices, verbose_name="Nivel escolar")
+    año = models.PositiveIntegerField(choices=AñoEscolar.choices, verbose_name="Año escolar")
     promedio_anterior = models.DecimalField(
         max_digits=4,
         decimal_places=2,
@@ -109,26 +141,20 @@ class Alumno(models.Model):
         validators=[
             MinValueValidator(0),
             MaxValueValidator(10)
-        ]
-    )
+        ])
     # Datos de referencia
     persona_recoge = models.CharField(max_length=100, verbose_name="Persona que recoge")
     contacto_otro = models.CharField(
         max_length=10,
         blank=True,
         verbose_name="Numero telefónico",
-        validators=[telefono_validator]
-    )
+        validators=[telefono_validator])
     contacto_otro_tipo = models.CharField(max_length=10, choices=TipoContacto.choices, verbose_name="Tipo de contacto")
 
     # Datos internos
-    fecha_creacion = models.DateTimeField(
-        auto_now_add=True
-    )
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    fecha_actualizacion = models.DateTimeField(
-        auto_now=True
-    )
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
     observaciones = models.TextField(max_length=150, blank=True)
 
     def clean(self):
@@ -201,21 +227,22 @@ class Alumno(models.Model):
 
 
 ############################################
+#Modelo/tabla para el registro de Cursos
 class Curso(models.Model):
     nombre = models.CharField(max_length=150, verbose_name="Nombre")
     descripcion = models.TextField(blank=True, verbose_name="Descripción")
 
     def __str__(self):
         return self.nombre
+
+
 ###########################################
+#Modelo/tabla para el registro de Grupos
 class Grupo(models.Model):
 
     nombre = models.CharField(max_length=50)
 
-    curso = models.ForeignKey(
-        Curso,
-        on_delete=models.CASCADE
-    )
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
 
     horario = models.CharField(max_length=50)
 
@@ -228,10 +255,7 @@ class Grupo(models.Model):
     def clean(self):
 
         if self.fecha_fin <= self.fecha_inicio:
-            raise ValidationError({
-                'fecha_fin':
-                'La fecha de terminación debe ser posterior a la fecha de inicio.'
-            })
+            raise ValidationError({'fecha_fin':'La fecha de terminación debe ser posterior a la fecha de inicio.'})
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -239,60 +263,32 @@ class Grupo(models.Model):
 
     def __str__(self):
         return self.nombre
-#############################################
-class EstatusInscripcion(models.TextChoices):
-    ACTIVA = "Activa", "Activa"
-    FINALIZADA = "Finalizada", "Finalizada"
-    BAJA = "Baja", "Baja"
-    CANCELADA = "Cancelada", "Cancelada"
 
+        
+############################################
+#Modelo/tabla para el registro de inscripciones
 class Inscripcion(models.Model):
 
-    alumno = models.ForeignKey(
-        Alumno,
-        on_delete=models.CASCADE,
-        related_name='inscripciones'
-    )
+    alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE, related_name='inscripciones')
 
-    grupo = models.ForeignKey(
-        Grupo,
-        on_delete=models.PROTECT
-    )
+    grupo = models.ForeignKey(Grupo, on_delete=models.PROTECT)
 
     fecha_inscripcion = models.DateField()
 
     contrato = models.CharField(max_length=50)
 
-    estatus = models.CharField(
-        max_length=15,
-        choices=EstatusInscripcion.choices,
-        default=EstatusInscripcion.ACTIVA
-    )
+    estatus = models.CharField(max_length=15, choices=EstatusInscripcion.choices, default=EstatusInscripcion.ACTIVA)
 
-    fecha_baja = models.DateField(
-        blank=True,
-        null=True
-    )
+    fecha_baja = models.DateField(blank=True, null=True)
 
-    fecha_creacion = models.DateTimeField(
-    auto_now_add=True
-    )
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    fecha_actualizacion = models.DateTimeField(
-    auto_now=True
-    )
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
 
-    observaciones = models.TextField(
-        blank=True
-    )
+    observaciones = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.alumno} - {self.grupo}"
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['alumno', 'grupo'],
-                name='inscripcion_unica'
-            )
-        ]
+        constraints = [models.UniqueConstraint(fields=['alumno', 'grupo'], name='inscripcion_unica')]

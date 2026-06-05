@@ -6,17 +6,17 @@
 	<title>{% block title %} Administracion {% endblock %}</title>
 </head>
 <body>
-	<div style="background-color: #111000">
+	<div style="background-color: #0104">
 		
 	<h1>BARRA DE NAVEGACION</h1>
 		<ul>
 			<li><a href="{% url 'lista_cursos' %}">Cursos</a></li>
 			<li><a href="{% url 'lista_grupos' %}">Grupos</a></li>
 			<li><a href="{% url 'lista_inscripciones' %}">Inscripciones</a></li>
-			<li><a href="{% url 'lista_alumnos' %}">Alumnos</li>
+			<li><a href="{% url 'lista_alumnos' %}">Alumnos</a></li>
 		</ul>
 	</div>
-	<div>
+	<div style="background-color: #0014">
 		{% block body %}
 
 		{% endblock %}

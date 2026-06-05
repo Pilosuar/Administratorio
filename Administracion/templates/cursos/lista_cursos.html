@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Cursos</title>
-</head>
-<body>
+{% extends 'plantilla.html' %}
 
+
+{% block title %} Cursos {% endblock %}
+{% block body %}
     <h1>Lista de Cursos</h1>
 
     <a href="{% url 'crear_curso' %}">
@@ -46,6 +43,4 @@
             {% endfor %}
         </tbody>
     </table>
-
-</body>
-</html>
+{% endblock %}
