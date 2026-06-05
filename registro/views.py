@@ -22,7 +22,7 @@ def crear_alumno(request):
     else:
         form = AlumnoForm()
 
-    return render(request, 'alumno_form.html', {
+    return render(request, 'crear_alumno.html', {
         'form': form
     })
 

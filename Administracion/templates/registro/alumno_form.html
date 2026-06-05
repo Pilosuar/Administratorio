@@ -1,12 +1,8 @@
-<<<<<<< HEAD
 <div class="container">
     <div class="card shadow">
         <div class="card-body">
             <h2 class="text-center mb-4">
                 Registro de Alumno</h2>
-=======
-
->>>>>>> a3f2a60bdbb5d6f1efcace8907ebc101b5a83b1f
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
@@ -101,14 +97,6 @@
                         {{ form.correo_electronico }}
                         {% if form.correo_electronico.errors %}
                         <div class="text-danger">{{ form.correo_electronico.errors.0 }}</div>
-                        {% endif %}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form.estatus.label_tag }}
-                        {{ form.estatus }}
-                        {% if form.estatus.errors %}
-                        <div class="text-danger">{{ form.estatus.errors.0 }}</div>
                         {% endif %}
                     </div>
                 </div>
@@ -362,6 +350,13 @@
                     {{ form.observaciones }}
                     {% if form.observaciones.errors %}
                     <div class="text-danger">{{ form.observaciones.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                    <div class="form-group">
+                    {{ form.estatus.label_tag }}
+                    {{ form.estatus }}
+                    {% if form.estatus.errors %}
+                    <div class="text-danger">{{ form.estatus.errors.0 }}</div>
                     {% endif %}
                 </div>
                 </div>

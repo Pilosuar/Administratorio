@@ -153,9 +153,10 @@ class Alumno(models.Model):
 
     # Datos internos
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+
     observaciones = models.TextField(max_length=150, blank=True)
+    estatus = models.CharField(max_length=20, choices=EstatusAlumno.choices, default=EstatusAlumno.ACTIVO, verbose_name="Estatus")
 
     def clean(self):
 
