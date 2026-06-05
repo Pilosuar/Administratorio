@@ -1,16 +1,9 @@
 {% extends 'plantilla.html' %}
 
-
 {% block title %} Cursos {% endblock %}
 {% block body %}
     <h1>Lista de Cursos</h1>
-
-    <a href="{% url 'crear_curso' %}">
-        Nuevo Curso
-    </a>
-
-    <br><br>
-
+    <a href="{% url 'crear_curso' %}">Nuevo Curso</a>
     <table border="1">
         <thead>
             <tr>
@@ -19,19 +12,14 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-
         <tbody>
             {% for curso in cursos %}
             <tr>
                 <td>{{ curso.nombre }}</td>
                 <td>{{ curso.descripcion }}</td>
                 <td>
-                    <a href="{% url 'editar_curso' curso.id %}">
-                        Editar
-                    </a>
-                    <a href="{% url 'eliminar_curso' curso.id %}">
-                        Eliminar
-                    </a>
+                    <a href="{% url 'editar_curso' curso.id %}">Editar</a>
+                    <a href="{% url 'eliminar_curso' curso.id %}">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
@@ -44,3 +32,4 @@
         </tbody>
     </table>
 {% endblock %}
+

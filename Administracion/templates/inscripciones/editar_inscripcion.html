@@ -1,15 +1,12 @@
 {% extends 'plantilla.html' %}
 
-
 {% block title %} Editar inscripcion {% endblock %}
 {% block body %}
     <h1>Editar Inscripción</h1>
-
     <form method="post">
         {% csrf_token %}
 
         {{ form.as_p }}
-
         <button type="submit">Actualizar</button>
         <a href="{% url 'lista_inscripciones' %}">Cancelar</a>
     </form>

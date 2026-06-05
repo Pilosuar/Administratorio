@@ -1,24 +1,13 @@
 {% extends 'plantilla.html' %}
 
-
 {% block title %} Editar curso {% endblock %}
 {% block body %}
     <h1>Eliminar Curso</h1>
-
-    <p>
-        ¿Está seguro que desea eliminar el curso
-        <strong>{{ curso.nombre }}</strong>?
-    </p>
-
+    <p>¿Está seguro que desea eliminar el curso<strong>{{ curso.nombre }}</strong>?</p>
     <form method="post">
         {% csrf_token %}
 
-        <button type="submit">
-            Confirmar eliminación
-        </button>
-
-        <a href="{% url 'lista_cursos' %}">
-            Cancelar
-        </a>
+        <button type="submit">Confirmar eliminación</button>
+        <a href="{% url 'lista_cursos' %}">Cancelar</a>
     </form>
 {% endblock %}

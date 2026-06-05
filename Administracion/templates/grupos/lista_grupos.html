@@ -1,17 +1,9 @@
 {% extends 'plantilla.html' %}
 
-
 {% block title %} Ver grupos {% endblock %}
 {% block body %}
-
     <h1>Lista de Grupos</h1>
-
-    <a href="{% url 'crear_grupo' %}">
-        Nuevo Grupo
-    </a>
-
-    <br><br>
-
+    <a href="{% url 'crear_grupo' %}">Nuevo Grupo</a>
     <table border="1">
         <thead>
             <tr>
@@ -24,7 +16,6 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-
         <tbody>
             {% for grupo in grupos %}
             <tr>
@@ -35,12 +26,8 @@
                 <td>{{ grupo.fecha_inicio }}</td>
                 <td>{{ grupo.fecha_fin }}</td>
                 <td>
-                    <a href="{% url 'editar_grupo' grupo.id %}">
-                        Editar
-                    </a>
-                     <a href="{% url 'eliminar_grupo' grupo.id %}">
-                        Eliminar
-                    </a>
+                    <a href="{% url 'editar_grupo' grupo.id %}">Editar</a>
+                     <a href="{% url 'eliminar_grupo' grupo.id %}">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
@@ -53,3 +40,5 @@
         </tbody>
     </table>
 {% endblock %}
+
+

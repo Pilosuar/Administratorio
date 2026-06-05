@@ -1,40 +1,23 @@
 {% extends 'plantilla.html' %}
 
-
 {% block title %} Eliminar inscripcion {% endblock %}
 {% block body %}
     <h1>Eliminar Inscripción</h1>
-
-    <p>
-        ¿Está seguro que desea eliminar la inscripción de:
-    </p>
-
+    <p>¿Está seguro que desea eliminar la inscripción de:</p>
     <ul>
         <li>
-            Alumno:
-            <strong>{{ inscripcion.alumno }}</strong>
-        </li>
-
+            Alumno:<strong>{{ inscripcion.alumno }}</strong></li>
         <li>
-            Grupo:
-            <strong>{{ inscripcion.grupo }}</strong>
+            Grupo:<strong>{{ inscripcion.grupo }}</strong>
         </li>
-
         <li>
-            Fecha:
-            <strong>{{ inscripcion.fecha_inscripcion }}</strong>
+            Fecha:<strong>{{ inscripcion.fecha_inscripcion }}</strong>
         </li>
     </ul>
-
     <form method="post">
         {% csrf_token %}
 
-        <button type="submit">
-            Confirmar eliminación
-        </button>
-
-        <a href="{% url 'lista_inscripciones' %}">
-            Cancelar
-        </a>
+        <button type="submit">Confirmar eliminación</button>
+        <a href="{% url 'lista_inscripciones' %}">Cancelar</a>
     </form>
 {% endblock %}

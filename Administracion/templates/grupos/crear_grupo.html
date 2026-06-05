@@ -1,18 +1,13 @@
 {% extends 'plantilla.html' %}
 
-
 {% block title %} Crear grupo {% endblock %}
 {% block body %}
-
     <h1>Registrar Grupo</h1>
-
     <form method="post">
         {% csrf_token %}
 
         {{ form.as_p }}
-
         <button type="submit">Guardar</button>
         <a href="{% url 'lista_grupos' %}">Cancelar</a>
     </form>
-
 {% endblock %}
