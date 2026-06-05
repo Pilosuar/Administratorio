@@ -132,7 +132,7 @@ class Alumno(models.Model):
 
     # Datos escolares
     escuela = models.CharField(max_length=150)
-    grado = models.CharField(choices=GradoAcademico.choices, verbose_name="Nivel escolar")
+    grado = models.CharField(max_length=50, choices=GradoAcademico.choices, verbose_name="Nivel escolar")
     año = models.PositiveIntegerField(choices=AñoEscolar.choices, verbose_name="Año escolar")
     promedio_anterior = models.DecimalField(
         max_digits=4,
@@ -209,8 +209,7 @@ class Alumno(models.Model):
             "padre_nombre", 
             "padre_apellido_paterno", 
             "padre_apellido_materno",
-            "escuela", 
-            "grado", 
+            "escuela",
             "persona_recoge",
         ]
 
