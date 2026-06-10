@@ -72,7 +72,19 @@
                             </div>
                         {% endfor %}
                     </div>
-                    
+
+                    <div id="preview-container" style="display:none;">
+                        <h4>Vista previa del contrato</h4>
+
+                        <iframe
+                            id="pdf-preview"
+                            width="100%"
+                            height="500px"
+                            style="border:1px solid #ccc;">
+                        </iframe>
+                    </div>
+
+
                     </div>
                     {% if form.instance.pk and form.instance.contrato_pdf %}
                         <a href="{{ form.instance.contrato_pdf.url }}"
@@ -146,23 +158,16 @@ document.addEventListener("DOMContentLoaded", function () {
 function toggleContrato() {
 
     const check =
-        document.getElementById(
-            "id_contrato_firmado"
-        );
+        document.getElementById("id_contrato_firmado");
 
-    const contenedor =
-        document.getElementById(
-            "contenedor-pdf"
-        );
+    const contenedor = document.getElementById("contenedor-pdf");
 
     if (check.checked) {
         contenedor.style.display = "block";
     } else {
         contenedor.style.display = "none";
 
-        document.getElementById(
-            "id_contrato_pdf"
-        ).value = "";
+        document.getElementById("id_contrato_pdf").value = "";
     }
 }
 
@@ -173,15 +178,60 @@ document.addEventListener(
 
         toggleContrato();
 
-        document
-            .getElementById(
-                "id_contrato_firmado"
-            )
-            .addEventListener(
-                "change",
-                toggleContrato
-            );
+        document.getElementById("id_contrato_firmado").addEventListener("change", toggleContrato);
     }
 );
+
+
+const pdfInput =
+    document.getElementById("id_contrato_pdf");
+
+const previewContainer =
+    document.getElementById("preview-container");
+
+const pdfPreview =
+    document.getElementById("pdf-preview");
+
+pdfInput.addEventListener(
+    "change",
+    function(e){
+
+        const archivo =
+            e.target.files[0];
+
+        if(!archivo){
+            previewContainer.style.display =
+                "none";
+            return;
+        }
+
+        if(
+            archivo.type !==
+            "application/pdf"
+        ){
+            alert(
+                "Solo se permiten archivos PDF."
+            );
+
+            this.value = "";
+
+            previewContainer.style.display =
+                "none";
+
+            return;
+        }
+
+        const url =
+            URL.createObjectURL(
+                archivo
+            );
+
+        pdfPreview.src = url;
+
+        previewContainer.style.display =
+            "block";
+    }
+);
+
 </script>
 {% endblock %}

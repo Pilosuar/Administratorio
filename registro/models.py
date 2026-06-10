@@ -315,6 +315,24 @@ class Inscripcion(models.Model):
             errores['fecha_baja'] = (
                 'La fecha de finalización debe ser posterior a la fecha de inscripción.')
 
+        # Validar cupo del grupo
+        if self.grupo:
+            #Solo cuenta los alumnos activos
+            inscritos = Inscripcion.objects.filter(
+                grupo=self.grupo,
+                estatus=EstatusInscripcion.ACTIVO
+            )
+
+            # Si se está editando una inscripción,
+            # excluir el registro actual
+            if self.pk:
+                inscritos = inscritos.exclude(pk=self.pk)
+
+            if inscritos.count() >= self.grupo.cupo:
+                errores['grupo'] = (
+                    f'El grupo "{self.grupo}" ya alcanzó su cupo máximo '
+                    f'({self.grupo.cupo} alumnos).')
+
         if errores:
             raise ValidationError(errores)
 

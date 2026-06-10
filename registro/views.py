@@ -223,11 +223,26 @@ def crear_inscripcion(request):
 
 # ###############################3
 def cargar_grupos(request):
+
     curso_id = request.GET.get('curso')
 
-    grupos = Grupo.objects.filter(curso_id=curso_id).values('id','nombre')
+    grupos = []
 
-    return JsonResponse(list(grupos), safe=False)
+    for grupo in Grupo.objects.filter(curso_id=curso_id):
+
+        ocupados = Inscripcion.objects.filter(
+            grupo=grupo,
+            estatus=EstatusInscripcion.ACTIVO
+        ).count()
+
+        disponibles = grupo.cupo - ocupados
+
+        grupos.append({
+            'id': grupo.id,
+            'nombre': f'{grupo.nombre} ({disponibles} lugares disponibles)'
+        })
+
+    return JsonResponse(grupos, safe=False)
 
 #Mustra el formulario con los datos registrados del la inscripcion
 def editar_inscripcion(request, id):
