@@ -1,24 +1,174 @@
 {% extends 'plantilla.html' %}
 
-{% block title %} Editar inscripcion {% endblock %}
+{% block title %}Editar inscripción{% endblock %}
+
+
+
 {% block body %}
-    <div class="titulo-az">
-        <h2>Editar Inscripción</h2>
-    </div>
-    
-    <form method="post">
-        {% csrf_token %}
-        <div class="card-individual">
-            <div class="tabla-individual">
-                <div class="form-group">
-                    {{ form.as_p }}
-                </div>
+<div class="titulo-az">
+    <h2>Editar Inscripción</h2>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Se encontraron errores:</strong>
+
+            {{ form.non_field_errors }}
+
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>
+                            <strong>{{ field.label }}:</strong>
+                            {{ error }}
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="card-individual">
+        <div class="tabla-individual">
+
+            <div class="form-group">
+                {{ form.alumno.label_tag }}
+                {{ form.alumno }}
             </div>
+
+            <div class="form-group">
+                {{ form.curso.label_tag }}
+                {{ form.curso }}
+            </div>
+
+            <div class="form-group">
+                {{ form.grupo.label_tag }}
+                {{ form.grupo }}
+            </div>
+
+            <div class="form-group">
+                {{ form.fecha_inscripcion.label_tag }}
+                {{ form.fecha_inscripcion }}
+            </div>
+            {% if form.instance.contrato_pdf %}
+                <div class="alert alert-info">
+                    Contrato actual:
+                    <a href="{{ form.instance.contrato_pdf.url }}" target="_blank">
+                        Ver PDF
+                    </a>
+                </div>
+            {% endif %}
+            <div id="preview-container" style="display:none;">
+                <h4>Vista previa del nuevo contrato</h4>
+
+                <iframe
+                    id="pdf-preview"
+                    width="100%"
+                    height="500px"
+                    style="border:1px solid #ccc;">
+                </iframe>
+            </div>
+<input
+    type="file"
+    name="contrato_pdf"
+    id="id_contrato_pdf"
+    accept="application/pdf"
+    class="form-control">
+            <div class="form-group">
+                {{ form.estatus.label_tag }}
+                {{ form.estatus }}
+            </div>
+
+            <div class="form-group">
+                {{ form.fecha_baja.label_tag }}
+                {{ form.fecha_baja }}
+            </div>
+
+            <div class="form-group">
+                {{ form.observaciones.label_tag }}
+                {{ form.observaciones }}
+            </div>
+
         </div>
-        
-        <div class="submit-container">
-            <button type="submit" class="btn-guardar">Actualizar</button>
-            <a href="{% url 'lista_inscripciones' %}" class="btn-cancelar">Cancelar</a>
-        </div>
-    </form>
+    </div>
+
+
+
+
+    <div class="submit-container">
+        <button type="submit" class="btn-guardar">
+            Actualizar
+        </button>
+
+        <a href="{% url 'lista_inscripciones' %}"
+           class="btn-cancelar">
+            Cancelar
+        </a>
+    </div>
+
+</form>
+
+<script>
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        toggleContrato();
+
+        document
+            .getElementById(
+                "id_contrato_firmado"
+            )
+            .addEventListener(
+                "change",
+                toggleContrato
+            );
+    }
+);
+
+const pdfInput =
+    document.getElementById(
+        "id_contrato_pdf"
+    );
+
+const previewContainer =
+    document.getElementById(
+        "preview-container"
+    );
+
+const pdfPreview =
+    document.getElementById(
+        "pdf-preview"
+    );
+
+pdfInput.addEventListener(
+    "change",
+    function(e){
+
+        const archivo =
+            e.target.files[0];
+
+        if(!archivo){
+            previewContainer.style.display =
+                "none";
+            return;
+        }
+
+        const url =
+            URL.createObjectURL(
+                archivo
+            );
+
+        pdfPreview.src = url;
+
+        previewContainer.style.display =
+            "block";
+    }
+);
+
+</script>
+
 {% endblock %}

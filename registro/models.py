@@ -89,6 +89,7 @@ class AñoEscolar(models.IntegerChoices):
     NOVENO = 9, "9°"
     DECIMO = 10, "10°"
     UNDECIMO = 11, "11°"
+    DUODECIMO = 12, "12°"
 
 #Modelo/tabla para el registro de alumnos
 class Alumno(models.Model):
@@ -160,6 +161,7 @@ class Alumno(models.Model):
         verbose_name="Numero telefónico",
         validators=[telefono_validator])
     contacto_otro_tipo = models.CharField(max_length=10, choices=TipoContacto.choices, verbose_name="Tipo de contacto")
+    otro_correo = models.EmailField(verbose_name="Correo electrónico", blank=True)
 
     # Datos internos
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -191,15 +193,21 @@ class Alumno(models.Model):
             )
 
         if self.padre_nombre:
-            if not self.padre_telefono:
+            if not self.padre_telefono and not self.padre_correo:
                 errores['padre_telefono'] = (
-                    'Debe indicar un teléfono del padre.'
+                    'Debe indicar el teléfono y correo electrónico del padre.'
                 )
 
         if self.madre_nombre:
-            if not self.madre_telefono:
+            if not self.madre_telefono and not self.madre_correo:
                 errores['madre_telefono'] = (
-                    'Debe indicar un teléfono de la madre.'
+                    'Debe indicar el teléfono y correo electrónico de la madre.'
+                )
+
+        if self.persona_recoge:
+            if not self.contacto_otro and not self.otro_correo:
+                errores['madre_telefono'] = (
+                    'Debe indicar una forma de contacto.'
                 )
 
         if errores:

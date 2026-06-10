@@ -129,17 +129,49 @@ class InscripcionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        for nombre, campo in self.fields.items():
+
+            if isinstance(
+                campo.widget,
+                forms.CheckboxInput
+            ):
+                campo.widget.attrs['class'] = (
+                    'form-check-input'
+                )
+            else:
+                campo.widget.attrs['class'] = (
+                    'form-control'
+                )
+
+
+        self.fields['fecha_inscripcion'].input_formats = ['%Y-%m-%d']
+        self.fields['fecha_baja'].input_formats = ['%Y-%m-%d']
 
         self.fields['grupo'].queryset = Grupo.objects.none()
 
+        # Cuando se selecciona un curso en el formulario
         if 'curso' in self.data:
             try:
                 curso_id = int(self.data.get('curso'))
-                self.fields['grupo'].queryset = Grupo.objects.filter(
-                    curso_id=curso_id
+
+                self.fields['grupo'].queryset = (
+                    Grupo.objects.filter(
+                        curso_id=curso_id
+                    ).order_by('nombre')
                 )
+
             except (ValueError, TypeError):
                 pass
 
+        # Cuando se edita una inscripción existente
+        elif self.instance.pk:
 
+            curso = self.instance.grupo.curso
 
+            self.fields['curso'].initial = curso
+
+            grupos = Grupo.objects.filter(
+                curso=curso
+            )
+
+            self.fields['grupo'].queryset = grupos

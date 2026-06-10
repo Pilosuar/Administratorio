@@ -54,8 +54,8 @@
                 <td>{{ alumno.edad_calculada }}</td>
             </tr>
             <tr>
-                <th>Estado</th>
-                <td>{{ alumno.estado }}</td>
+                <th>Estatus</th>
+                <td>{{ alumno.estatus }}</td>
             </tr>
             <tr>
                 <th>Teléfono del alumno</th>
@@ -187,7 +187,7 @@
         </table>
 
         <div class="titulo-Ama">
-            <h2>Datos de Contacto</h2>
+            <h2>Datos de referecia</h2>
         </div>
 
         <table class="tabla-expediente">
@@ -202,6 +202,10 @@
             <tr>
                 <th>Tipo de contacto</th>
                 <td>{{ alumno.get_contacto_otro_tipo_display }}</td>
+            </tr>
+            <tr>
+                <th>Correo electronico</th>
+                <td>{{ alumno.otro_correo}}</td>
             </tr>
         </table>
 
