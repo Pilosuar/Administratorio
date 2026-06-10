@@ -18,7 +18,10 @@
 
         <div class="submit-container">
             <button type="submit" class="btn-guardar">Guardar</button>
-            <a href="{% url 'lista_grupos' %}" class="btn-cancelar">Cancelar</a>
+            <a href="{% url 'lista_alumnos' %}" class="btn-cancelar"
+            onclick="return confirm('¿Desea cancelar el registro? Los datos capturados se perderán.');">
+                Cancelar
+            </a>
         </div>
     </form>
 {% endblock %}

@@ -4,6 +4,19 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.validators import RegexValidator
 from datetime import date
 from PIL import Image
+import os
+
+#Función para validar el formato en PDF
+def validar_pdf(archivo):
+
+    extension = os.path.splitext(
+        archivo.name
+    )[1].lower()
+
+    if extension != '.pdf':
+        raise ValidationError(
+            'Solo se permiten archivos PDF.'
+        )
 
 #Función paara validar la foto del alumno
 def validar_resolucion_imagen(imagen):
@@ -46,16 +59,13 @@ class TipoSangre(models.TextChoices):
 #Clase para listar los estatus del alumno
 class EstatusAlumno(models.TextChoices):
     ACTIVO = "Activo", "Activo"
-    BAJA = "Baja", "Baja"
-    EGRESADO = "Egresado", "Egresado"
-    SUSPENDIDO = "Suspendido", "Suspendido"
+    INACTIVO = "Inactivo", "Inactivo"
+
 
 #Clase para listar los estatus de inscripcion
 class EstatusInscripcion(models.TextChoices):
-    ACTIVA = "Activa", "Activa"
-    FINALIZADA = "Finalizada", "Finalizada"
-    BAJA = "Baja", "Baja"
-    CANCELADA = "Cancelada", "Cancelada"
+    ACTIVO = "Activo", "Activo"
+    INACTIVO = "Inactivo", "Inactivo"
 
 #Clase para listar grados académicos
 class GradoAcademico(models.TextChoices):
@@ -248,15 +258,8 @@ class Grupo(models.Model):
 
     cupo = models.PositiveIntegerField(default=20, verbose_name="Tamaño del grupo (cupo)")
 
-    fecha_inicio = models.DateField(verbose_name="fecha de inicio")
-
-    fecha_fin = models.DateField(verbose_name="fecha de terminación")
-
-    def clean(self):
-
-        if self.fecha_fin <= self.fecha_inicio:
-            raise ValidationError({'fecha_fin':'La fecha de terminación debe ser posterior a la fecha de inicio.'})
-
+    #def clean(self):
+        #validaciones
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
@@ -273,13 +276,24 @@ class Inscripcion(models.Model):
 
     grupo = models.ForeignKey(Grupo, on_delete=models.PROTECT)
 
-    fecha_inscripcion = models.DateField()
+    fecha_inscripcion = models.DateField(verbose_name="Fecha de inscripción")
 
-    contrato = models.CharField(max_length=50)
+    contrato_firmado = models.BooleanField(
+        default=False,
+        verbose_name="Contrato firmado"
+    )
 
-    estatus = models.CharField(max_length=15, choices=EstatusInscripcion.choices, default=EstatusInscripcion.ACTIVA)
+    contrato_pdf = models.FileField(
+        upload_to='contratos/',
+        validators=[validar_pdf],
+        blank=True,
+        null=True,
+        verbose_name="Contrato (PDF)"
+    )
 
-    fecha_baja = models.DateField(blank=True, null=True)
+    estatus = models.CharField(max_length=15, choices=EstatusInscripcion.choices, default=EstatusInscripcion.ACTIVO)
+
+    fecha_baja = models.DateField(blank=True, null=True, verbose_name="Fecha de finalización")
 
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
@@ -287,8 +301,27 @@ class Inscripcion(models.Model):
 
     observaciones = models.TextField(blank=True)
 
+    def clean(self):
+
+        errores = {}
+
+        if self.contrato_firmado and not self.contrato_pdf:
+            errores['contrato_pdf'] = ('Debe adjuntar el contrato en PDF.')
+
+        if not self.contrato_firmado and self.contrato_pdf:
+            errores['contrato_firmado'] = ('Debe marcar la casilla de contrato.')
+
+        if (self.fecha_baja and self.fecha_baja <= self.fecha_inscripcion):
+            errores['fecha_baja'] = (
+                'La fecha de finalización debe ser posterior a la fecha de inscripción.')
+
+        if errores:
+            raise ValidationError(errores)
+
     def __str__(self):
         return f"{self.alumno} - {self.grupo}"
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=['alumno', 'grupo'], name='inscripcion_unica')]
+
+

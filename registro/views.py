@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Alumno, Curso, Grupo, Inscripcion
+from .models import Alumno, Curso, Grupo, Inscripcion, EstatusInscripcion
 from .forms import AlumnoForm, CursoForm, GrupoForm, InscripcionForm
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from datetime import date
 
 #Renderiza la plantilla principal
 def plantilla(request):
@@ -183,6 +185,14 @@ def eliminar_grupo(request, id):
 ### I N S C R I P C I O N E S
 #Muestra un listado de todos las incripciones
 def lista_inscripciones(request):
+    #Verifica que la fecha actual sea menor a la fecha de baja sino actualiza el status a 'INACTIVO'    
+    Inscripcion.objects.filter(
+        fecha_baja__isnull=False,
+        fecha_baja__lte=date.today(),
+        estatus=EstatusInscripcion.ACTIVO
+    ).update(
+        estatus=EstatusInscripcion.INACTIVO
+    )
 
     inscripciones = (
         Inscripcion.objects
@@ -193,27 +203,41 @@ def lista_inscripciones(request):
 #Muestra un formulario para crear una inscripcion
 def crear_inscripcion(request):
 
-    if request.method == 'POST':
+    if request.method == "POST":
 
-        form = InscripcionForm(request.POST)
+        form = InscripcionForm(
+            request.POST,
+            request.FILES
+        )
 
         if form.is_valid():
             form.save()
-            return redirect('lista_inscripciones')
+            return redirect(
+                'lista_inscripciones'
+            )
 
     else:
         form = InscripcionForm()
 
     return render(request, 'crear_inscripcion.html', {'form': form})
 
+# ###############################3
+def cargar_grupos(request):
+    curso_id = request.GET.get('curso')
+
+    grupos = Grupo.objects.filter(curso_id=curso_id).values('id','nombre')
+
+    return JsonResponse(list(grupos), safe=False)
+
 #Mustra el formulario con los datos registrados del la inscripcion
 def editar_inscripcion(request, id):
-
     inscripcion = get_object_or_404(Inscripcion, pk=id)
 
-    if request.method == 'POST':
-
-        form = InscripcionForm(request.POST, instance=inscripcion)
+    if request.method == "POST":
+        form = InscripcionForm(
+            request.POST,
+            request.FILES,
+            instance=inscripcion)
 
         if form.is_valid():
             form.save()

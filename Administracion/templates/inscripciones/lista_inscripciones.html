@@ -7,11 +7,8 @@
     </div>
     
     <div class="btn-agregar">
-        <a href="{% url 'crear_inscripcion' %}" class="btn-nuevo-alumno">
-            Nueva Inscripción
-        </a>
+        <a href="{% url 'crear_inscripcion' %}" class="btn-nuevo-alumno">Nueva Inscripción</a>
     </div>
-
     <div class="card-individual">
         <div class="tabla-individual">
             <table>
@@ -25,7 +22,6 @@
                         <th class="az">Acciones</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     {% for inscripcion in inscripciones %}
                     <tr>

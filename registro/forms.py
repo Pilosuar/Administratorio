@@ -1,8 +1,5 @@
 from django import forms
-from .models import Alumno
-from .models import Curso
-from .models import Grupo
-from .models import Inscripcion
+from .models import Alumno, Curso, Grupo, Inscripcion
 
 class AlumnoForm(forms.ModelForm):
 
@@ -96,37 +93,53 @@ class GrupoForm(forms.ModelForm):
         model = Grupo
         fields = '__all__'
 
-        widgets = {
-            'fecha_inicio': forms.DateInput(
-                attrs={'type': 'date'}, format='%Y-%m-%d'
-            ),
-            'fecha_fin': forms.DateInput(
-                attrs={'type': 'date'}, format='%Y-%m-%d'
-            ),
-        }
-
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fecha_inicio'].input_formats = ['%Y-%m-%d']
-        self.fields['fecha_fin'].input_formats = ['%Y-%m-%d']
 
 
 class InscripcionForm(forms.ModelForm):
+    curso = forms.ModelChoiceField(
+        queryset=Curso.objects.all(),
+        required=True,
+        label="Curso"
+    )
+
     class Meta:
         model = Inscripcion
-        fields = '__all__'
+        fields = [
+            'alumno',
+            'curso',
+            'grupo',
+            'fecha_inscripcion',
+            'contrato_firmado',
+            'contrato_pdf',
+            'estatus',
+            'fecha_baja',
+            'observaciones',
+        ]
 
         widgets = {
             'fecha_inscripcion': forms.DateInput(
-                attrs={'type': 'date'}, format='%Y-%m-%d'
+                attrs={'type': 'date'},  format='%Y-%m-%d'
             ),
             'fecha_baja': forms.DateInput(
-                attrs={'type': 'date'}, format='%Y-%m-%d'
+                attrs={'type': 'date'},  format='%Y-%m-%d'
             ),
         }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['fecha_inscripcion'].input_formats = ['%Y-%m-%d']
-        self.fields['fecha_baja'].input_formats = ['%Y-%m-%d']
+        self.fields['grupo'].queryset = Grupo.objects.none()
+
+        if 'curso' in self.data:
+            try:
+                curso_id = int(self.data.get('curso'))
+                self.fields['grupo'].queryset = Grupo.objects.filter(
+                    curso_id=curso_id
+                )
+            except (ValueError, TypeError):
+                pass
+
+
+

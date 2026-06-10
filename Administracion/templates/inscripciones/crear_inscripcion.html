@@ -6,20 +6,182 @@
         <h2>Registrar Inscripción</h2>
     </div>
     
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Se encontraron errores:</strong>
+
+            {{ form.non_field_errors }}
+
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>
+                            <strong>{{ field.label }}:</strong>
+                            {{ error }}
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
 
         <div class="card-individual">
             <div class="tabla-individual">
                 <div class="form-group">
-                    {{ form.as_p }}
+                    <div class="form-group">
+                        {{ form.alumno.label_tag }}
+                        {{ form.alumno }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.curso.label_tag }}
+                        {{ form.curso }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.grupo.label_tag }}
+                        {{ form.grupo }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.fecha_inscripcion.label_tag }}
+                        {{ form.fecha_inscripcion }}
+                        {% for error in form.fecha_inscripcion.errors %}
+                            <div class="text-danger">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.contrato_firmado.label_tag }}
+                        {{ form.contrato_firmado }}
+                    </div>
+
+                    <div id="contenedor-pdf" class="form-group">
+                        {{ form.contrato_pdf.label_tag }}
+                        {{ form.contrato_pdf }}
+
+                        {% for error in form.contrato_pdf.errors %}
+                            <div class="text-danger">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    </div>
+                    {% if form.instance.pk and form.instance.contrato_pdf %}
+                        <a href="{{ form.instance.contrato_pdf.url }}"
+                           target="_blank"
+                           class="btn btn-primary">
+                           Ver contrato
+                        </a>
+                    {% endif %}
+                    <div class="form-group">
+                        {{ form.estatus.label_tag }}
+                        {{ form.estatus }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.fecha_baja.label_tag }}
+                        {{ form.fecha_baja }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.observaciones.label_tag }}
+                        {{ form.observaciones }}
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="submit-container">
             <button type="submit" class="btn-guardar">Guardar</button>
-            <a href="{% url 'lista_inscripciones' %}" class="btn-cancelar">Cancelar</a>
+            <a href="{% url 'lista_alumnos' %}" class="btn-cancelar"
+                onclick="return confirm('¿Desea cancelar el registro? Los datos capturados se perderán.');">
+                Cancelar
+            </a>
+
         </div>
     </form>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cursoSelect = document.getElementById("id_curso");
+    const grupoSelect = document.getElementById("id_grupo");
+
+    cursoSelect.addEventListener("change", function () {
+
+        const cursoId = this.value;
+
+        grupoSelect.innerHTML =
+            '<option value="">Seleccione un grupo</option>';
+
+        if (!cursoId) return;
+
+        fetch(`/ajax/cargar-grupos/?curso=${cursoId}`)
+            .then(response => response.json())
+            .then(data => {
+
+                data.forEach(grupo => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = grupo.id;
+                    option.textContent = grupo.nombre;
+
+                    grupoSelect.appendChild(option);
+                });
+            });
+    });
+});
+
+function toggleContrato() {
+
+    const check =
+        document.getElementById(
+            "id_contrato_firmado"
+        );
+
+    const contenedor =
+        document.getElementById(
+            "contenedor-pdf"
+        );
+
+    if (check.checked) {
+        contenedor.style.display = "block";
+    } else {
+        contenedor.style.display = "none";
+
+        document.getElementById(
+            "id_contrato_pdf"
+        ).value = "";
+    }
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        toggleContrato();
+
+        document
+            .getElementById(
+                "id_contrato_firmado"
+            )
+            .addEventListener(
+                "change",
+                toggleContrato
+            );
+    }
+);
+</script>
 {% endblock %}

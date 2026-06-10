@@ -51,12 +51,6 @@
                         <div class="text-danger">{{ form.apellido_materno.errors.0 }}</div>
                         {% endif %}
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Edad calculada</label>
-                        <input type="text" id="edad_calculada" class="form-control" readonly>
-                    </div>
-
                     <div class="form-group">
                         {{ form.fecha_nacimiento.label_tag }}
                         {{ form.fecha_nacimiento }}
@@ -64,7 +58,10 @@
                         <div class="text-danger">{{ form.fecha_nacimiento.errors.0 }}</div>
                         {% endif %}
                     </div>
-
+                    <div class="form-group">
+                        <label class="form-label">Edad calculada</label>
+                        <input type="text" id="edad_calculada" class="form-control" readonly>
+                    </div>
                     <div class="form-group">
                         {{ form.foto.label_tag }}
                         {{ form.foto }}
