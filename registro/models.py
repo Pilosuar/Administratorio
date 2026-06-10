@@ -286,10 +286,7 @@ class Inscripcion(models.Model):
 
     fecha_inscripcion = models.DateField(verbose_name="Fecha de inscripción")
 
-    contrato_firmado = models.BooleanField(
-        default=False,
-        verbose_name="Contrato firmado"
-    )
+    #contrato_firmado = models.BooleanField(default=False, verbose_name="Contrato firmado")
 
     contrato_pdf = models.FileField(
         upload_to='contratos/',
@@ -313,11 +310,12 @@ class Inscripcion(models.Model):
 
         errores = {}
 
-        if self.contrato_firmado and not self.contrato_pdf:
+        #if self.contrato_firmado and not self.contrato_pdf:
+        if not self.contrato_pdf:
             errores['contrato_pdf'] = ('Debe adjuntar el contrato en PDF.')
 
-        if not self.contrato_firmado and self.contrato_pdf:
-            errores['contrato_firmado'] = ('Debe marcar la casilla de contrato.')
+        #if not self.contrato_firmado and self.contrato_pdf:
+            #errores['contrato_firmado'] = ('Debe marcar la casilla de contrato.')
 
         if (self.fecha_baja and self.fecha_baja <= self.fecha_inscripcion):
             errores['fecha_baja'] = (

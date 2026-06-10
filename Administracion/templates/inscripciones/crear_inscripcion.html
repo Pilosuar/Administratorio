@@ -56,11 +56,8 @@
                             </div>
                         {% endfor %}
                     </div>
-                    
-                    <div class="form-group">
-                        {{ form.contrato_firmado.label_tag }}
-                        {{ form.contrato_firmado }}
-                    </div>
+
+                <!--<div class="form-group">{{ form.contrato_firmado.label_tag }}{{ form.contrato_firmado }}</div>-->
 
                     <div id="contenedor-pdf" class="form-group">
                         {{ form.contrato_pdf.label_tag }}
@@ -154,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 });
-
+/*
 function toggleContrato() {
 
     const check =
@@ -170,7 +167,7 @@ function toggleContrato() {
         document.getElementById("id_contrato_pdf").value = "";
     }
 }
-
+*/
 
 document.addEventListener(
     "DOMContentLoaded",

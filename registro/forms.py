@@ -111,7 +111,7 @@ class InscripcionForm(forms.ModelForm):
             'curso',
             'grupo',
             'fecha_inscripcion',
-            'contrato_firmado',
+            #'contrato_firmado',
             'contrato_pdf',
             'estatus',
             'fecha_baja',
