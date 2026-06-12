@@ -10,13 +10,12 @@
         <h2> Expediente del Alumno</h2>
 
         <div class="acciones">
-            <a href="{% url 'editar_alumno' alumno.id_alumno %}" class="btn-editar-exp">
-                Editar
-            </a>
+            <a href="{% url 'editar_alumno' alumno.id_alumno %}" class="btn-editar-exp">Editar</a>
 
-            <a href="{% url 'lista_alumnos' %}" class="btn-regresar-exp">
-                Regresar
-            </a>
+            <a href="{% url 'lista_alumnos' %}" class="btn-regresar-exp">Regresar</a>
+
+            <a href="{% url 'descargar_pdf_alumno' alumno.id_alumno %}" class="btn-excel">Descargar</a>
+
         </div>
     </div>
 
@@ -237,7 +236,6 @@
                     <th>Curso</th>
                     <th>Grupo</th>
                     <th>Fecha inscripción</th>
-                    <th>Contrato</th>
                     <th>Estatus</th>
                 </tr>
             </thead>
@@ -247,7 +245,6 @@
                     <td>{{ inscripcion.grupo.curso.nombre }}</td>
                     <td>{{ inscripcion.grupo.nombre }}</td>
                     <td>{{ inscripcion.fecha_inscripcion|date:"d/m/Y" }}</td>
-                    <td>{{ inscripcion.contrato }}</td>
                     <td>{{ inscripcion.get_estatus_display }}</td>
                 </tr>
                 {% empty %}

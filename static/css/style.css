@@ -160,6 +160,27 @@ body {
 
 
 /*Agregar alumno*/
+.barra-superior{
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.acciones-superior{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-agregar{
+    width: auto;
+    margin: 0;
+}
+
 .buscador{
     width: 100%;
     display: flex;
@@ -170,7 +191,7 @@ body {
 }
 
 .buscador label{
-    width: 700px;
+    width: 1000px;
     font-size: 13px;
     font-weight: 600;
     color: #222;
@@ -178,7 +199,7 @@ body {
 
 .buscador form{
     position: relative;
-    width: 700px;
+    width: 1000px;
 }
 
 .buscador input[type="text"]{
@@ -260,6 +281,10 @@ body {
     transition: .2s;
 }
 
+.tabla-individual td:last-child{
+    min-width: 260px;
+}
+
 .Az{
     background-color: #2f5496;
     color: white;
@@ -290,10 +315,11 @@ td img{
 
 .botones-acciones{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    min-height: 150px;
+    gap: 6px;
+    min-height: auto;
 }
 
 .btn-editar, .btn-eliminar, .btn-descargar{
@@ -358,13 +384,36 @@ td img{
 }
 
 .btn-excel{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
     background-color: #217346;
-    color: white;
+    color: #FFFFFF;
     text-decoration: none;
-    padding: 12px 20px;
+
+    padding: 12px 22px;
     border-radius: 5px;
+    border: none;
+
+    font-size: 14px;
     font-weight: 600;
+
+    cursor: pointer;
+    transition: all .2s ease;
 }
+
+.btn-excel:hover{
+    background-color: #185c37;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,.15);
+}
+
+.btn-excel:active{
+    transform: translateY(0);
+}
+
 
 .btn-excel:hover{
     background-color: #185c37;

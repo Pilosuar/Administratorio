@@ -5,12 +5,16 @@
     <div class="titulo-Ama">
         <h2>Lista de Cursos</h2>
     </div>
-    
-    <div class="btn-agregar">
-        <a href="{% url 'crear_curso' %}" class="btn-nuevo-alumno">
-            Nuevo Curso
-        </a>
+
+<div class="barra-superior">
+
+    <div class="acciones-superior">
+        <a href="{% url 'exportar_cursos_excel' %}" class="btn-excel">Exportar Excel</a>
+
+        <a href="{% url 'crear_curso' %}" class="btn-nuevo-alumno">Nuevo Curso</a>    
     </div>
+
+</div>
 
     <div class="card-individual">
         <div class="tabla-individual">
@@ -29,8 +33,12 @@
                 <td>{{ curso.nombre }}</td>
                 <td>{{ curso.descripcion }}</td>
                 <td>
-                    <a href="{% url 'editar_curso' curso.id %}" class="btn-editar">Editar</a>
-                    <a href="{% url 'eliminar_curso' curso.id %}" class="btn-eliminar">Eliminar</a>
+                    
+                    <div class="botones-acciones">
+                            <a href="{% url 'editar_curso' curso.id %}" class="btn-editar">Editar</a>
+                            <a href="{% url 'eliminar_curso' curso.id %}" class="btn-eliminar">Eliminar</a>
+                            <a href="{% url 'exportar_curso_excel' curso.id %}" class="btn-descargar">Descargar</a>
+                    </div>
                 </td>
             </tr>
             {% empty %}
